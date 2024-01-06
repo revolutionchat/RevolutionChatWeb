@@ -16,8 +16,8 @@ from email.utils import formataddr
 #)
 
 #Authentication - without user
-cid = os.environ['cidSpotify']
-csec = os.environ['csecSpotify']
+cid = "" #os.environ['cidSpotify']
+csec = "" #os.environ['csecSpotify']
 #client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=csec)
 #sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
 
