@@ -1,0 +1,106 @@
+  .user-profile-main{
+    flex-direction: row;
+  }
+  
+    .input-of-text {
+  border-bottom-color: lightgray;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  outline: none;
+  font-family: 'Gill Sans', sans-serif;
+}
+
+.input-of-text:focus {
+  border-bottom-color: rgb(0, 140, 255);
+  transition: border-bottom-color 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.input-of-text:hover {
+  border-bottom-color: rgb(0, 140, 255);
+  transition: border-bottom-color 0.6s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.button {
+  border-bottom-color: #3131fc;
+  background: #3131fc;
+  color: white;
+  height: 35px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border-left: 0px;
+  border-right: 1px;
+  border-top: 1px;
+  border-radius: 11px;
+  transition: border-bottom-color 2s, background 2s;
+  transition-delay: 0.2s;
+}
+
+.button:hover {
+  background: blue;
+  transition: background 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.button:focus {
+  background: #00aeff;
+  transition: background 0.01 ease-out;
+}
+
+p {
+  font-family: 'Gill Sans', sans-serif;
+}
+
+text {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+  .server-item {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding-bottom: 9px;
+    color: white;
+    text-align: center;
+    border: none;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+  }
+
+  .server-item:hover {
+    border-radius: 20%;
+    transition: all 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    -ms-transition: all 0.2s ease-in;
+  }
+
+  .message-item {
+    height: 30px;
+    width: 90%;
+    background: lightgray;
+    border-radius: 6px;
+    display: flex;
+    float: left;
+    align-items: center;
+    padding: 5px 5px;
+    background: #444;
+  }
+
+  .message-item:hover {
+    background: #333;
+  }
+
+  .message-item-link {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #dedbd1;
+  }
+
+  .message-item-link:hover {
+    color: white;
+  }
