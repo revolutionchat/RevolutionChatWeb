@@ -1,0 +1,21 @@
+{
+  "name": "Revolution",
+  "short_name": "rChat",
+  "start_url": "/app",
+  "display": "standalone",
+  "background_color": "#4CA3DD",
+  "theme_color": "#db4938",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": true,
+  
+  "icons": [
+    {
+      "src": "/assets/images/Revolution.png",
+      "type": "image/png", "sizes": "144x144"
+    }
+  ],
+  "protocol_handlers": [{
+    "protocol": "web+revolution://",
+    "url": "./?gooblerchat=%s"
+  }]
+}

@@ -1,0 +1,30 @@
+Privacy Policy for Revolution Chat App:
+
+At Revolution, we take your privacy seriously and are committed to protecting the personal information you provide to us. This Privacy Policy outlines how we collect, use, and store your information when you use our chat app. Please read this policy carefully to understand how we handle and safeguard your data.
+
+1. Information We Collect:
+- Account Information: When you sign up for an account on Revolution, we collect your email, username, and password to create and maintain your account.
+
+2. Use of Your Information:
+- Account Maintenance: We use the information you provide to create and manage your Revolution account.
+- Personalization: We may use your information to personalize your experience on Revolution, such as displaying your username and preferences.
+- Communication: We may use your email address to send you important updates, notifications, and announcements related to Revolution.
+
+3. Public Visibility of Username and Messages:
+- Please be aware that usernames and messages sent on the Revolution Chat App will be public and visible to all users of the app. This means that other users will have access to the usernames and messages that are shared.
+
+4. Data Security:
+- We implement industry-standard security measures to protect your personal information from unauthorized access, disclosure, or loss.
+- However, please note that no method of transmission or storage over the internet is completely secure, and we cannot guarantee the absolute security of your data.
+
+5. Data Retention:
+- We will retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law.
+
+6. Third-Party Services:
+- Revolution may use third-party services that may collect and process your information on our behalf. However, we ensure that these third-party services adhere to strict data protection standards.
+
+7. Children's Privacy:
+- Revolution is not intended for use by individuals under the age of 13. We do not knowingly collect personal information from children. If we become aware that we have unintentionally collected personal information from a child under 13, we will take appropriate steps to delete the information from our records.
+
+8. Changes to the Privacy Policy:
+- We reserve the right to update or modify this Privacy Policy at any time. Any changes will be effective immediately upon posting the updated policy on Revolution. Your continued use of our chat app after any modifications to the policy will signify your acceptance of the changes.

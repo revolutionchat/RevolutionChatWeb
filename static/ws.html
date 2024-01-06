@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Flask-SocketIO Demo</title>
+    <!-- how would we do this for the bot api though-->
+  </head>
+  <body>
+    <h1>Flask-SocketIO Demo</h1>
+    <div id="log"></div>
+    <br>
+    <form id="form">
+      <label for="text">Input: </label>
+      <input type="text" id="text" autofocus>
+    </form>
+    
+    <script>
+      const log = (text, color) => {
+        document.getElementById('log').innerHTML += `<span style="color: ${color}">${text}</span><br>`;
+      };
+
+      const websck = new WebSocket("{{ url_for('websocket', _external=True, _scheme='ws') }}")
+    </script>
+  </body>
+</html>

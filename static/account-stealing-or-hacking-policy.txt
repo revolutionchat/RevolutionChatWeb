@@ -1,0 +1,12 @@
+At Revolution, we want to make sure everyone on our platform is really safe. These are guidelines to tell how to deal with a relatively serious situation like your account getting hacked.
+- If you have been harrassed, stalked (in real life), or groomed you should consider contacting proper authorities.
+- Revolution shall not be held responsible for the breach of laws of another individual/group on this site.
+
+1. Threats of Hacking
+- If you are receiving threats from a (group of) individuals, it is recommended to fill out our report form. This may result in the offender's account getting disabled. (we only monitor private messages for this reason)
+
+2. Unknown hacker(s) hacked your account
+- If someone has hacked your account, message us in the discord server at .gg/UPkkSDy4wa including your account name and discriminator, time when you got hacked, and when you want to release the account from disabled mode. 
+* You must have some proof that this was your account. Sensitive information like your IP address, old password and 2 Factor Authentication code won't suffice. Just tell us simple information like what was the last message that was sent to a user, etc.
+
+> We are able to trace messages and conversations at any time. An investigation may take place at any time for any offender to get removed or disabled (for a number of days) off our platform.
