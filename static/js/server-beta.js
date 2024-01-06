@@ -194,7 +194,7 @@ const renderMessage = async (data, start) => {
       window.currChannel = element.name
       //location.hash = "#" + element.name
       document.getElementsByTagName("title")[0].textContent = "#" + element.name + " | Revolution"
-      history.pushState({}, "#" + currChannel + " | Revolution", "https://revolution-web.repl.co/channels/" + window.currServer + "/" + window.currChannel)
+      history.pushState({}, "#" + currChannel + " | Revolution", "https://revolutionweb.onrender.com/channels/" + window.currServer + "/" + window.currChannel)
       //}
       getNewMessages()
       console.log(websck);
