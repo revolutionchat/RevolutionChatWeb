@@ -324,7 +324,7 @@ const homePage = async () => {
         document.getElementById("channel-list").hidden = true
   document.getElementById("welcomeText").textContent = `Welcome to Revolution, ${user.name}! Hope you like beta testing!`
   document.getElementsByTagName("title")[0].textContent = "Home Page | Revolution"
-  history.pushState({}, "Home Page | Revolution", "https://revolution-web.repl.co/channels/@me")
+  history.pushState({}, "Home Page | Revolution", "https://revolutionweb.onrender.com/channels/@me")
   startTab()
   await currentlyLoading();
 }
@@ -341,7 +341,7 @@ const serverPage = async (server, channel) => {
         document.getElementById("generalTab").hidden = true
         document.getElementById("channel-list").hidden = false
         document.getElementsByTagName("title")[0].textContent = "#" + channel + " | Revolution"
-        history.pushState({}, "#" + channel + " | Revolution", "https://revolution-web.repl.co/channels/" + server.serverid + "/" + channel)
+        history.pushState({}, "#" + channel + " | Revolution", "https://revolutionweb.onrender.com/channels/" + server.serverid + "/" + channel)
         document.getElementById("input-area").hidden = true
         document.getElementById("read-only").hidden = false
         document.getElementById("logo").src = server.imgurl
@@ -379,7 +379,7 @@ const systemPage = async () => {
   document.getElementById("input-area").hidden = true
   document.getElementById("read-only").hidden = false
   document.getElementsByTagName("title")[0].textContent = "System Messages | Revolution"
-  history.pushState({}, "System Messages | Revolution", "https://revolution-web.repl.co/channels/@system")
+  history.pushState({}, "System Messages | Revolution", "https://revolutionweb.onrender.com/channels/@system")
   window.channelType = "@system"
   startTab()
   await currentlyLoading();
@@ -398,7 +398,7 @@ const aiPage = async () => {
   document.getElementById("memberListUser").textContent = user.name
   document.getElementById("message-list").innerHTML = `<li style="padding-left: 10px; color: white; width: 100%;" -onmouseover="const collection = this.children; this.style.background = '#535357'; this.style.color = 'white';" -onmouseout="const collection = this.children; this.style.background = 'transparent'; this.style.color = 'white';"><b><img src="/assets/images/Revolution.png" width="40" style="background: blue; border-radius: 20%;"/> <onclickFunc onclick="newUserPopUpCard(86974321651)">Revolved</onclickFunc> <span class="badge" style="background: mediumpurple;">Revolved <i class="fa fa-check"></i></span> </b> <br>Hi! I am the new Revolved AI revolved around Revolution! Ask me any question and I will search the internet quickly to answer it to the best of my ability. Whatever I say and do, does not reflect Revolution's views. If you notice a bad message, make sure to report it on the Revolution Official Discord. I do not save messages.</li>`
   document.getElementsByTagName("title")[0].textContent = "Revolved AI | Revolution"
-  history.pushState({}, "Revolved AI | Revolution", "https://revolution-web.repl.co/channels/@ai")
+  history.pushState({}, "Revolved AI | Revolution", "https://revolutionweb.onrender.com/channels/@ai")
   document.getElementById("input-area").hidden = false
   document.getElementById("read-only").hidden = true
   window.channelType = "@ai";
@@ -421,7 +421,7 @@ const addUserPage = async () => {
   document.getElementById("message-input").hidden = true
   document.getElementById("user-list").hidden = true
   document.getElementsByTagName("title")[0].textContent = "Add a User | Revolution"
-  history.pushState({}, "Add a User | Revolution", "https://revolution-web.repl.co/channels/@add")
+  history.pushState({}, "Add a User | Revolution", "https://revolutionweb.onrender.com/channels/@add")
   document.getElementById("input-area").hidden = false
   document.getElementById("read-only").hidden = true
   channelType = "@add"
