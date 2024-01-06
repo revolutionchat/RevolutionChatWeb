@@ -1,5 +1,7 @@
 pyrebase4
 requests
 Flask
-flask_cors
 openai==0.28.1
+gevent
+gevent-websocket
+Flask-Cors
