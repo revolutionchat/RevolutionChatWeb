@@ -101,7 +101,7 @@ warnVictim();
 setInterval(warnVictim,20000);
 
 const websocket = async () => {
-  websck = await new WebSocket("wss://revolution-web.repl.co");
+  websck = await new WebSocket("wss://revolutionweb.onrender.com");
   //await currentlyLoading();
   
   websck.onopen = async function(e) {
