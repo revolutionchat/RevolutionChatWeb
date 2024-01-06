@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Flask-SocketIO Demo</title>
+    <!-- how would we do this for the bot api though-->
+  </head>
+  <body>
+    <h1>Flask-SocketIO Demo</h1>
+    <div id="log"></div>
+    <br>
+    <form id="form">
+      <label for="text">Input: </label>
+      <input type="text" id="text" autofocus>
+    </form>
+    
+    <script>
+      const log = (text, color) => {
+        document.getElementById('log').innerHTML += `<span style="color: ${color}">${text}</span><br>`;
+      };
+
+      const websck = new WebSocket("{{ url_for('websocket', _external=True, _scheme='wss') }}");
+      const uid = Math.random();
+
+      websck.addEventListener("open", (e) => {
+        log("Connected!", "lightgreen");
+        log("Sending to server", "yellow");
+        websck.send(JSON.stringify({ "type": "newConnection", "connectionuId": uid }));
+      });
+
+      websck.addEventListener("close", (event) => {
+        if (event.wasClean) {
+          log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`, "grey");
+        } else {
+          // e.g. server process killed or network down
+          // event.code is usually 1006 in this case
+          log('[close] Connection died', 'red');
+        }
+      });
+      
+      websck.addEventListener('error', (error) => {
+        log(`[error]`, 'red');
+      });
+
+      websck.addEventListener('message', ev => {
+        log('<<< ' + JSON.parse(ev.data).message, 'blue');
+      });
+  
+      document.getElementById('form').addEventListener("submit", ev => {
+        ev.preventDefault();
+        const textField = document.getElementById('text');
+        log('>>> ' + textField.value, 'red');
+        websck.send(JSON.stringify({"message": textField.value}));
+        textField.value = '';
+      });//nice, looks good i think it is ready for the bot api to use and possibly the message system
+      // make the server echo the message back to the client okay 
+      //WAIT was that message thing you
+    </script>
+  </body>
+</html>

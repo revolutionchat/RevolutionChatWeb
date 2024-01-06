@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Log in | Revolution</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-status-bar" content="#fff" />
+  <meta name="theme-color" content="#db4938" />
+  <link rel="apple-touch-icon" href="/assets/images/Revolution.png" />
+  <link rel="manifest" href="/static/manifest.webmanifest">
+  <meta name="description" content="Revolution created PWA Application">
+  <link rel="stylesheet" href="/static/css/login-options.css">
+</head>
+<body>
+  <div class="content">
+    <div class="loginBox">
+      <span class="loginTitle">Welcome to Revolution!</span>
+      <div class="loginMessage">How would you like to log in?</div>
+      <label class="cred" hidden>
+        Your session has expired. Please re-login to your account.<br>
+        <script>
+          if (window.location.href.includes('token_expired')) {
+            document.querySelector('.cred').hidden = false;
+          }
+        </script>
+      </label>
+      <div class="loginList">
+        <a href="/login/method/account" class="loginButton">Log in with an Account</a>
+        <a href="/login/method/guest" class="loginButton">Login as a Guest</a>
+        <a href="/register" class="loginButton">Register</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

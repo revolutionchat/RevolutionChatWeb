@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Administrator Dashboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f6f6f6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #4caf50;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .logo {
+      font-size: 24px;
+    }
+
+    button.back {
+      width: fit-content;
+      height: 100%;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      outline: none;
+      border: none;
+      border-radius: 6px;
+    }
+
+    button.back:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .menu {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+      margin-right: 10px;
+    }
+
+    .main-content {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+    }
+
+    .more-card-options {
+      margin-top: 20px;
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .card.clickable {
+      cursor: pointer;
+      transition: all 0.5s ease-in-out;
+    }
+
+    .card.clickable.disabled {
+      cursor: not-allowed; 
+      transition: all 0.5s ease-in-out;
+      filter: blur(4px);
+    }
+
+    .card.clickable:hover {
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.5s ease-in-out;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .card p {
+      margin-bottom: 0;
+    }
+
+    .clickable {
+      cursor: pointer;
+    }
+
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo"><button class="back" hidden><span class="material-symbols-outlined">arrow_back</span></button> Admin Dashboard</div>
+      <div class="menu">
+        <a class="back-home clickable">Home</a>
+        <a href="#">Settings</a>
+        <a href="#">Logout</a>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="card">
+        <h3>Total Users</h3>
+        <p>{{usersamount}}</p>
+      </div>
+      <div class="card">
+        <h3>Messages</h3>
+        <p>{{messageamount}}</p>
+      </div>
+      <div class="card">
+        <h3>Online Bots</h3>
+        <p>Unknown</p>
+      </div>
+      <div class="card">
+        <h3>Online Users</h3>
+        <p>Unknown</p>
+      </div>
+      <div class="card">
+        <h3>Servers</h3>
+        <p>{{serversamount}}</p>
+      </div>
+      <div class="card clickable mop">
+        <h3>More options</h3>
+        <p>See more options for Revolution.</p>
+      </div>
+    </div>
+    <div class="more-card-options" hidden>
+      <div class="card">
+        <h3>Total Users</h3>
+        <p>{{usersamount}}</p>
+      </div>
+      <div class="card">
+        <h3>Messages</h3>
+        <p>{{messageamount}}</p>
+      </div>
+      <div class="card">
+        <h3>Online Bots</h3>
+        <p>Unknown</p>
+      </div>
+      <div class="card">
+        <h3>Online Users</h3>
+        <p>Unknown</p>
+      </div>
+      <div class="card">
+        <h3>Servers</h3>
+        <p>{{serversamount}}</p>
+      </div>
+      <div class="card">
+        <h3>Amount of DMs</h3>
+        <p>{{dmsamount}}</p>
+      </div>
+      <div class="card clickable spmes">
+        <h3>Send Panel Message</h3>
+        <p>Click me to make a panel message that shows itself everywhere across the site. Required permissions: Administrator</p>
+      </div>
+      <div class="card clickable spmes-reset">
+        <h3>Reset Panel Message</h3>
+        <p>Click me to reset the panel message.</p>
+      </div>
+      <div class="card clickable disabled">
+        <h3>Shutdown Site</h3>
+        <p>This will block all new incoming requests on the accessible pages. <br><b>Required permissions: Owner</b></p>
+      </div>
+      <div class="card clickable disabled">
+        <h3>Shutdown Bot API</h3>
+        <p>This will block all new incoming requests on the API. <br><b>Required permissions: Owner</b></p>
+      </div>
+      <div class="card clickable eusscr-button">
+        <h3>Edit Users</h3>
+        <p>Do actions on users. Ban accounts, change usernames, get IDs. <br><b>Required permissions: Staff</b></p>
+      </div>
+    </div>
+    <div class="edit-users-screen" hidden>
+      <table>
+        <tr>
+          <th>User</th>
+          <th>ID</th>
+          <th>Badge?</th>
+          <th>Actions</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+<script>
+  const mainscreen = document.querySelector('.main-content');
+  const mcop = document.querySelector('.more-card-options');
+  const eusscr = document.querySelector('.edit-users-screen');
+  const header = document.querySelector('.container .header');
+  var stateNumber = 0;
+
+  async function getAllUsers() {
+    const request = await (await fetch(`/api/v8/get_all_users`, {
+      method: 'GET',
+      headers: {
+        auth: localStorage.getItem('token')
+      }
+    })).json();
+    return request;
+  }
+  
+  mainscreen.querySelector('.card.mop').addEventListener('click', async(e) => {
+    mcop.hidden = false;
+    mcop.style.display = "grid";
+    mainscreen.hidden = true;
+    mainscreen.style.display = "none";
+    stateNumber = 1;
+  });
+  mcop.querySelector('.card.spmes').addEventListener('click', async(e) => {
+    const panelmessage = prompt('Enter the message you want to send to the panel.');
+    const a = await (await fetch(`/api/v8/panel-message/change`, { headers: {
+      message: panelmessage,
+      auth: localStorage.getItem('token')
+    }})).text()
+    if (a.includes("403")) {
+      alert(`Access denied.\nYou either have a bad token or you are not logged in.`);
+    } else {
+      alert(`Changed panel message.`)
+    }
+  });
+  mcop.querySelector('.card.spmes-reset').addEventListener('click', async(e) => {
+    const a = await (await fetch(`/api/v8/panel-message/reset`, { headers: {
+      auth: localStorage.getItem('token')
+    }})).text();
+    if (a.includes("403")) {
+      alert(`Access denied.\nYou either have a bad token or your permission level is too low.`);
+    } else {
+      alert(`Reset panel message.`)
+    }
+  });
+
+  mcop.querySelector('.card.eusscr-button').addEventListener('click', async(e) => {
+    const userslist = await getAllUsers();
+    const tr = `<tr><td>[username]</td><td>[id]</td><td>[badge]</td><td>No actions available.</td></tr>`;
+    eusscr.querySelector('table').innerHTML = `<tr>
+      <th>User</th>
+      <th>ID</th>
+      <th>Badge?</th>
+      <th>Actions</th>
+    </tr>`;
+    for (const i of userslist.users) {
+      var badge;
+      // insert new row and
+      // add actions
+      if (i.bot) {
+        badge = "BOT"
+      }
+      if (i.staff) {
+        badge = "STAFF"
+      }
+      eusscr.querySelector('table').insertAdjacentHTML('beforeend', tr.replaceAll('[username]', i.name).replaceAll('[id]', i.id).replaceAll('[badge]', badge));
+    }
+    eusscr.hidden = false;
+    mcop.hidden = true;
+    mcop.style.display = "none";
+    stateNumber = 2;
+  });
+  
+  header.querySelector('.menu .back-home').addEventListener('click', async(e) => {
+    if (stateNumber == 1) {
+      mcop.hidden = true;
+      mcop.style.display = "none";
+      mainscreen.hidden = false;
+      mainscreen.style.display = "grid";
+      stateNumber = 0;
+    } else if (stateNumber == 2) {
+      eusscr.hidden = true;
+      eusscr.style.display = "none";
+      mcop.hidden = false;
+      mcop.style.display = "grid";
+      stateNumber = 1;
+    }
+  });
+  header.querySelector('.logo .back').addEventListener('click', async(e) => {
+    if (stateNumber == 1) {
+      mcop.hidden = true;
+      mcop.style.display = "none";
+      mainscreen.hidden = false;
+      mainscreen.style.display = "grid";
+      stateNumber = 0;
+    } else if (stateNumber == 2) {
+      eusscr.hidden = true;
+      eusscr.style.display = "none";
+      mcop.hidden = false;
+      mcop.style.display = "grid";
+      stateNumber = 1;
+    }
+  });
+
+  setInterval(function() {
+    if (stateNumber == 0) {
+      header.querySelector('.logo .back').hidden = true;
+    } else {
+      header.querySelector('.logo .back').hidden = false;
+    }
+  });
+</script>
+</html>

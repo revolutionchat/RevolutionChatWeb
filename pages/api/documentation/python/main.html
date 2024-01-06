@@ -1,0 +1,416 @@
+<html>
+  <head>
+    <title>Revolution API Documentation</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif, monospace;
+        background: #222;
+        color: white;
+      }
+      code {
+        background: #444;
+        border: #666 1px solid;
+        color: white;
+        padding: 2px;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      red {
+        color: red;
+      }
+      blue {
+        color: #4287f5;
+      }
+      a {
+        color: #4287f5;
+      }
+      heading {
+        border-bottom: 1px #777 solid;
+        width: 100% !important;
+        font-size: 21px;
+        display: block;
+      }
+      li {
+        border-left: 2.1px mediumpurple solid;
+        padding: 5px;
+        list-style: none;
+        transition: all 0.5s ease;
+        margin-bottom: 5px;
+        cursor: pointer;
+        width: fit-content;
+      }
+      li:hover {
+        border-left: 4px mediumpurple solid;
+        transition: all 0.5s ease;
+        color: mediumaquamarine;
+        background: #111;
+        width: 450px;
+      }
+      pre {
+        /*padding: 15px;*/
+        font-family: Courier, sans-serif;
+        font-size: 1em;
+      	line-height: 1.3;
+        color: #fff;
+        /*background-color: /*#2c3e50 #444;*/
+        -webkit-border-radius: 0px 0px 6px 6px;
+        -moz-border-radius: 0px 0px 6px 6px;
+        border-radius: 0px 0px 6px 6px;
+        margin-bottom: 10px;
+      }
+      pre code {
+        background: none;
+        border: none;
+        padding: none;
+        border-radius: none;
+        font-size: 14;
+      }
+      .paramitem {
+        border-bottom: 1px solid gray;
+        border-top: 1px solid gray;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Revolution Python API</h1>
+    <p>Welcome to our API. We currently have a NodeJS and a Python library. <code><red>Enjoy</red> and <blue>be happy coding!</blue></code></p>
+
+    <p>Install our Python library:</p>
+    <code>$ <blue>pip</blue> install revolution.py</code>
+    <code><blue>pip3</blue> install revolution.py</code>
+    
+    <h3>Source code</h3>
+    <p>Python source code - <blue><a href="https://github.com/JustAnEric/Revolution.py" target="_blank">JustAnEric/Revolution.py</a></blue></p>
+
+    <h3>Other Documentation</h3>
+    <p>Python - <blue><a href="/api/docs/py">JustAnEric/Revolution.py/Docs</a></blue></p>
+    <p>JavaScript - <blue><a href="/api/docs/js">JustAnEric/Revolution.js/Docs</a></blue></p>
+
+    <heading>Events</heading>
+    <li>ready</li>
+    <li>server_message</li>
+    <p>Examples:</p>
+    <pre class="language-python"><code>
+@bot.event
+async def ready():
+    print("I am ready!")
+
+@bot.event
+async def server_message(message):
+    print(f"{message['sent_by']} sent {message['message']}")
+    </code></pre>
+    <heading>revolutionpy.lib</heading>
+    <heading>...commands.Structure Classes</heading>
+    <a href="#revpylib{Channel}"><li>Channel</li></a>
+    <a href="#revpylib{Role}"><li>Role</li></a>
+    <a href="#revpylib{Server}"><li>Server</li></a>
+    <a href="#revpylib{PartialServer}"><li>PartialServer</li></a>
+    <a href="#revpylib{Message}"><li>Message</li></a>
+    <a href="#revpylib{Member}"><li>Member</li></a>
+    <a href="#revpylib[process_commands]"><li>process_commands => (self, bot, message, server)</li></a>
+    <a href="#revpylib[command]"><li>@command() => (self, *, name=None, description=None)</li></a><br/>
+    
+    <h3 id="revpylib{Channel}">Channel => (self, name, parentData, bot)</h3>
+    <p>An object for a Revolution Channel, including direct messages. This is usually returned by the commands API.</p>
+    <a href="#revpylib{Channel}{bot}"><li>bot</li></a>
+    <a href="#revpylib{Channel}{id}"><li>id</li></a>
+    <a href="#revpylib{Channel}{name}"><li>name</li></a>
+    <a href="#revpylib{Channel}{parentData}"><li>parentData</li></a>
+    <a href="#revpylib{Channel}{partial_parent}"><li>partial_parent</li></a>
+    <a href="#revpylib{Channel}{parent}"><li>parent</li></a>
+    <a href="#revpylib{Channel}[fetch]"><li>fetch => (self)</li></a>
+
+    <div class="paramitem" id="revpylib{Channel}{bot}">
+      <h5>.bot</h5>
+      <span>The original bot object that the class came from.</span><br/>
+      <b>Returns: [ BotApplication ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Channel}{id}">
+      <h5>.id</h5>
+      <span>READ-ONLY; The original channel name/id.</span><br/>
+      <b>Returns: [ str ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Channel}{name}">
+      <h5>.name</h5>
+      <span>READ-ONLY; The original channel name.</span><br/>
+      <b>Returns: [ str ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Channel}{parentData}">
+      <h5>.parentData</h5>
+      <span>The original data object that the class processes.</span><br/>
+      <b>Returns: [ { "name": ..., "id": ..., "abbr": ..., "imgurl": ..., "color": ..., "channels": [ ... ], "roles": [ ... ], "emojis": [ ... ], "emotes": [ ... ], "members": [ ... ], ... } ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Channel}{partial_parent}">
+      <h5>.partial_parent</h5>
+      <span>The partial server to process using <code>PartialServer.fetch()</code></span><br/>
+      <b>Returns: [ PartialServer ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Channel}{parent}">
+      <h5>.parent</h5>
+      <span>The server that the class processes from a PartialServer (.partial_parent)</span><br/>
+      <b>Returns: [ Server ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Channel}[fetch]">
+      <h5>.fetch => (self)</h5>
+      <span>A function to get all the messages of a channel</span><br/>
+      <b>Returns: [ map(..., Message, ...) ]</b>
+    </div>
+
+    <h3 id="revpylib{Role}">Role => (self, id, name, bot)</h3>
+    <p>An object for a Revolution Role [ WIP ]</p>
+    <a href="#revpylib{Role}{id}"><li>id</li></a>
+    <a href="#revpylib{Role}{bot}"><li>bot</li></a>
+    <a href="#revpylib{Role}{name}"><li>name</li></a>
+
+    <div class="paramitem" id="revpylib{Role}{id}">
+      <h5>.id</h5>
+      <span>READ-ONLY; The role ID.</span><br/>
+      <b>Returns: [ str \ int ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Role}{bot}">
+      <h5>.bot</h5>
+      <span>The original bot object that the class came from.</span><br/>
+      <b>Returns: [ BotApplication ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Role}{name}">
+      <h5>.name</h5>
+      <span>READ-ONLY; The role name.</span><br/>
+      <b>Returns: [ str ]</b>
+    </div>
+
+    <h3 id="revpylib{Server}">Server => (self, data, bot)</h3>
+    <p>An object for a Revolution Server</p>
+    <a href="#revpylib{Server}{bot}"><li>bot</li></a>
+    <a href="#revpylib{Server}{data}"><li>data</li></a>
+    <a href="#revpylib{Server}{name}"><li>name</li></a>
+    <a href="#revpylib{Server}{id}"><li>id</li></a>
+    <a href="#revpylib{Server}{abbr}"><li>abbr</li></a>
+    <a href="#revpylib{Server}{abbreviation}"><li>abbreviation</li></a>
+    <a href="#revpylib{Server}{icon}"><li>icon</li></a>
+    <a href="#revpylib{Server}{color}"><li>color</li></a>
+    <a href="#revpylib{Server}{channels}"><li>channels</li></a>
+    <a href="#revpylib{Server}{roles}"><li>roles</li></a>
+    <a href="#revpylib{Server}{emojis}"><li>emojis</li></a>
+    <a href="#revpylib{Server}{emotes}"><li>emotes</li></a>
+    <a href="#revpylib{Server}{members}"><li>members</li></a>
+    <a href="#revpylib{Server}{partial}"><li>partial</li></a>
+
+    <div class="paramitem" id="revpylib{Server}{bot}">
+      <h5>.bot</h5>
+      <span>The original bot object that the class came from.</span><br/>
+      <b>Returns: [ BotApplication ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Server}{data}">
+      <h5>.data</h5>
+      <span>READ-ONLY; The server raw data.</span><br/>
+      <b>Returns: [ { "name": ..., "id": ..., "abbr": ..., "imgurl": ..., "color": ..., "channels": [ ... ], "roles": [ ... ], "emojis": [ ... ], "emotes": [ ... ], "members": [ ... ], ... } ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Server}{name}">
+      <h5>.name</h5>
+      <span>READ-ONLY; The server name.</span><br/>
+      <b>Returns: [ str ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Server}{id}">
+      <h5>.id</h5>
+      <span>READ-ONLY; The server ID.</span><br/>
+      <b>Returns: [ str \ int ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Server}{abbr}">
+      <h5>.abbr</h5>
+      <span>READ-ONLY; The server abbreviation.</span><br/>
+      <b>Returns: [ str ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Server}{abbreviation}">
+      <h5>.abbrevation</h5>
+      <span>READ-ONLY; The server abbreviation.</span><br/>
+      <b>Returns: [ str ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Server}{icon}">
+      <h5>.icon</h5>
+      <span>READ-ONLY; The server icon url. If it starts with <code>/</code>, add <code>https://revolution-web.repl.co</code> in front of the url to get the full image.</span><br/>
+      <b>Returns: [ str ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Server}{color}">
+      <h5>.color</h5>
+      <span>READ-ONLY; The server color. Usually in hex, rgb is secondary.</span><br/>
+      <b>Returns: [ str ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Server}{channels}">
+      <h5>.channels</h5>
+      <span>READ-ONLY; The server channels.</span><br/>
+      <b>Returns: [ map(..., Channel, ...) ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Server}{roles}">
+      <h5>.roles</h5>
+      <span>READ-ONLY; The server roles.</span><br/>
+      <b>Returns: [ map(..., Role, ...) ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Server}{emojis}">
+      <h5>.emojis</h5>
+      NOT IMPLEMENTED;
+      <span>READ-ONLY; The server emojis.</span><br/>
+      <b>Returns: [ map(unknown) ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Server}{emotes}">
+      <h5>.emotes</h5>
+      NOT IMPLEMENTED;
+      <span>READ-ONLY; The server emotes.</span><br/>
+      <b>Returns: [ map(unknown) ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Server}{members}">
+      <h5>.members</h5>
+      <span>READ-ONLY; The server members.</span><br/>
+      <b>Returns: [ map(..., Member, ...) ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Server}{partial}">
+      <h5>.partial</h5>
+      <span>READ-ONLY; Tells you if it is a partial server or not, usually for this class, it returns False.</span><br/>
+      <b>Returns: [ boolean(True, False) ]</b>
+    </div>
+
+    <h3 id="revpylib{PartialServer}">PartialServer => (self, id, bot)</h3>
+    <p>An object for a Partial Server, This is usually returned by the commands API.</p>
+    <a href="#revpylib{PartialServer}{bot}"><li>bot</li></a>
+    <a href="#revpylib{PartialServer}{id}"><li>id</li></a>
+    <a href="#revpylib{PartialServer}{partial}"><li>partial</li></a>
+    <a href="#revpylib{PartialServer}[fetch]"><li>fetch => (self)</li></a>
+
+    <div class="paramitem" id="revpylib{PartialServer}{bot}">
+      <h5>.bot</h5>
+      <span>The original bot object that the class came from.</span><br/>
+      <b>Returns: [ BotApplication ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{PartialServer}{id}">
+      <h5>.id</h5>
+      <span>READ-ONLY; The original channel name/id.</span><br/>
+      <b>Returns: [ str ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{PartialServer}{partial}">
+      <h5>.partial</h5>
+      <span>READ-ONLY; Tells you if it is a partial server or not, usually for this class, it returns True.</span><br/>
+      <b>Returns: [ boolean(True, False) ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{PartialServer}[fetch]">
+      <h5>.fetch => (self)</h5>
+      <span>A function to get the server information and return a <code>Server(*)</code> class. (caches server information)</span><br/>
+      <b>Returns: [ Server(*) ]</b>
+    </div>
+
+    <h3 id="revpylib{Message}">Message</h3>
+    <p>An object for a Message, This is usually returned by the commands API. (commands API sets up variables, not preset)</p>
+    <a href="#revpylib{Message}{author}"><li>author</li></a>
+    <a href="#revpylib{Message}{author_id}"><li>author_id</li></a>
+    <a href="#revpylib{Message}{server_id}"><li>server_id</li></a>
+    <a href="#revpylib{Message}{server}"><li>server</li></a>
+    <a href="#revpylib{Message}{content}"><li>content</li></a>
+    <a href="#revpylib{Message}{channel}"><li>channel</li></a>
+    <a href="#revpylib{Message}{channel_id}"><li>channel_id</li></a>
+    <a href="#revpylib{Message}{message_id}"><li>message_id</li></a>
+    <a href="#revpylib{Message}{id}"><li>id</li></a>
+    <a href="#revpylib{Message}{timestamp}"><li>timestamp</li></a>
+    <a href="#revpylib{Message}{bot}"><li>bot</li></a>
+    <a href="#revpylib{Message}{staff}"><li>staff</li></a>
+
+    <div class="paramitem" id="revpylib{Message}{author}">
+      <h5>.author</h5>
+      <span>The author of the message sent.</span><br/>
+      <b>Returns: [ Member ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Message}{author_id}">
+      <h5>.author_id</h5>
+      <span>READ-ONLY; The author's ID.</span><br/>
+      <b>Returns: [ str \ int ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Message}{server_id}">
+      <h5>.server_id</h5>
+      <span>READ-ONLY; Returns the parent ID of the channel the message was sent in.</span><br/>
+      <b>Returns: [ str \ int ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Message}{server}">
+      <h5>.server</h5>
+      <span>The server the message was sent in.</span><br/>
+      <b>Returns: [ Server(*) ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Message}{content}">
+      <h5>.content</h5>
+      <span>READ-ONLY; The content of the message.</span><br/>
+      <b>Returns: [ str ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Message}{channel}">
+      <h5>.channel</h5>
+      <span>READ-ONLY; The channel the message was sent in.</span><br/>
+      <b>Returns: [ Channel(*) ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Message}{channel_id}">
+      <h5>.channel_id</h5>
+      <span>READ-ONLY; Returns the channel ID from the Channel the message was sent in.</span><br/>
+      <b>Returns: [ str \ int ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Message}{message_id}">
+      <h5>.message_id</h5>
+      <span>READ-ONLY; Returns the message ID.</span><br/>
+      <b>Returns: [ str \ int ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Message}{id}">
+      <h5>.id</h5>
+      <span>READ-ONLY; Returns the message ID.</span><br/>
+      <b>Returns: [ str \ int ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Message}{timestamp}">
+      <h5>.timestamp</h5>
+      <span>READ-ONLY; Returns the epoch timestamp for when the message was sent.</span><br/>
+      <b>Returns: [ int ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Message}{bot}">
+      <h5>.bot</h5>
+      <span>READ-ONLY; Retrieves the user's presence and sees if they're a bot or not.</span><br/>
+      <b>Returns: [ boolean(True, False) ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Message}{staff}">
+      <h5>.staff</h5>
+      <span>READ-ONLY; Retrieves the user's presence and sees if they're a staff member or not.</span><br/>
+      <b>Returns: [ boolean(True, False) ]</b>
+    </div>
+
+    <h3 id="revpylib{Member}">Member => (self, name, id, bot)</h3>
+    <p>An object for a Member, This is usually returned by the commands API.</p>
+    <a href="#revpylib{Member}{bot}"><li>bot</li></a>
+    <a href="#revpylib{Member}{name}"><li>name</li></a>
+    <a href="#revpylib{Member}{id}"><li>id</li></a>
+    <a href="#revpylib{Member}[send]"><li>send => (self, content)</li></a>
+
+    <div class="paramitem" id="revpylib{Member}{bot}">
+      <h5>.bot</h5>
+      <span>The original bot object that the class came from.</span><br/>
+      <b>Returns: [ BotApplication ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Member}{name}">
+      <h5>.name</h5>
+      <span>READ-ONLY; The member name.</span><br/>
+      <b>Returns: [ str ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Member}{id}">
+      <h5>.id</h5>
+      <span>READ-ONLY; The member ID.</span><br/>
+      <b>Returns: [ str \ int ]</b>
+    </div>
+    <div class="paramitem" id="revpylib{Member}[send]">
+      <h5>.send => (self, content)</h5>
+      <span>A function to send a message to the member. (direct messages)</span><br/>
+      <b>Returns: [ Message ]</b>
+    </div>
+
+    <h3 id="revpylib[process_commands]">process_commands => (self, bot, message, server)</h3>
+    <p>A function to process normal chat commands if you are using a <code>server_message</code> event.
+    <br/><b>Returns: [ None ]</b>
+    </p>
+
+    <p>MIT License/Licence - Revolution<br>Copying is legally allowed, malicious uses are not permitted.</p>
+    <footer>Python Revolution API, 2023 Revolution Chat</footer>
+    
+    <script src="/static/js/docs/python/highlight.min.js"></script>
+    <link href="/static/js/docs/python/dark.min.css" rel="stylesheet"/>
+    <script>hljs.highlightAll();</script>
+  </body>
+</html>

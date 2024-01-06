@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%;">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revolved (BETA) | Revolution</title>
+    <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker
+      .register("/serviceWorker.js")
+      .then(res => console.log("service worker registered - serviceWorker.js"))
+      .catch(err => console.log("service worker not registered - ", err))
+  })
+}
+  </script>
+  
+    <meta name="apple-mobile-web-app-status-bar" content="#fff" />
+    <meta name="theme-color" content="#db4938" />
+    <link rel="apple-touch-icon" href="/assets/images/Revolution.png" />
+    <link rel="manifest" href="/static/manifest.webmanifest">
+    <meta name="description" content="Revolution created PWA Application">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/f110c9db95.js" crossorigin="anonymous"></script>
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    
+    <div class="alert" id="network-change-alert" style="color: blue;" hidden>
+      <span class="material-symbols-outlined">wifi</span> &nbsp;&nbsp; Your network connectivity is unstable and we can't connect you.
+    </div>
+    <script src="/static/js/connectivity-check.js"></script>
+    
+    <style>@font-face { font-family: "Gotham Narrow"; src: url("/static/fonts/gotham-narrow-book.woff2"); }</style>
+<style>
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: grey; 
+}
+</style>
+  </head>
+  <body style="margin: 0; background: grey; overflow: hidden; height: 100%;">
+
+    <header>
+      <!-- for important things like modals -->
+    </header>
+    <!-- page content code -->
+    <div class="content" style="background-color: #2f3136; scroll-behaviour:smooth; height: 100%;">
+
+      <div class="bottom-nav" style="background-color: black; position: fixed; bottom: 0; float: left; width: 100%;">
+    <!-- NAV BAR CODE -->
+    <a href="/channels/@me"><img class="logo" src="/assets/images/Revolution-TR.png" style="width: 50px; padding: 10px 5px 8px 5px; border-right:2px darkgrey solid; background: rgba(56,56,56,0.5); border-radius: 20%;"></img></a>
+    <a href="/channels/@join">
+    <img class="server-icons" src="/assets/images/addserver-icon.png" style="width: 50px; padding: 10px 5px 5px 5px;"></img></a>
+    {% for item in guilds %}
+      {% if sName == item['name'] %}
+        <a href="/channels/@s/{{item['serverid']}}">
+          <button class="server-item" style="border-radius:20%; background-image: url('{{item['imgurl']|safe}}'); border: none; height: 50px; width: 50px; background-size: 100%;"><span style="visibility: hidden;">server.item</span></button>
+        </a>
+      {% else %}
+        <a href="/channels/@s/{{item['serverid']}}">
+          <button class="server-item" style="background: url('{{item['imgurl']}}'); background-size: 100%; border: none;"><span style="visibility: hidden;">server.item</span></button>
+        </a>
+      {% endif %}
+    {% endfor %}
+    {% if 'joinedServer' in session %}
+      <a href="/channels/@sLocal/{{session.get('joinedServer')['serverid']}}">
+        <button class="server-item">{{session.get("joinedServer")["abbr"]}}</button>
+    {% endif %}
+			</div>
+      
+      <div class="user-list">
+        <span name="member-role">1 - Member</span>
+        <ul name="member-role">
+          <div class="user">
+            <img src="/assets/images/Revolution.png" width="30" style="border-radius: 50%;">
+            <div class="user-content">
+              <p class="name">{{user}}</p>
+              <small class="status">- Online</small>
+            </div>
+          </div>
+        </ul>
+        <span name="offline-role">Offline</span>
+        <ul name="offline-role">
+          {% for user2 in users_chatted_in_server %}
+            {% if user2['name'] == user %}
+            {% else %}
+              <div class="user" onclick="newUserPopUpCard({{user2['id']}})">
+                <img src="/assets/images/Revolution.png" width="30" style="border-radius: 50%;">
+                <div class="user-content">
+                  <p class="name">{{user2['name']}}</p>
+                  <small class="status">- Offline</small>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="message-list" style="height: 100%;">
+        
+        <div class="flex-shrink-0 p-3" style="width: 20%; height: 100%; background: #222222;">
+    <a href="#" class="d-flex align-items-center pb-3 mb-3 link-light text-decoration-none" style="background: rgba(56,56,56,1); padding: 5px 5px; border-radius: 10px;">
+      <img class="logo" src="/assets/images/Revolution-TR.png" style="width: 50px;">&nbsp;Messages</img>
+      <button class="joinNewConv-btn btn-dark" style="border-radius: 6px; border: 0; outline: 0; font-weight: bold; margin-left: 10px;" onclick="alert(`Joining conversations and creating them aren't supported yet.`)">&plus;</button>
+    </a>
+    <div class="border-top" style="border-image: linear-gradient(to right, darkblue, darkorchid) 1;"></div>
+    <br>
+    <ul class="list-unstyled ps-0">
+      <div class="message-item mb-2">
+        <a href="/channels/@system" class="message-item-link"><img src="/assets/images/Revolution.png" width="30" style="border-radius: 50%; padding: 5px 5px;">&nbsp;&nbsp;Revolution</a>
+      </div>
+      <div class="message-item mb-2">
+        <a href="/channels/@ai" class="message-item-link"><img src="/assets/images/Revolution.png" width="30" style="border-radius: 50%; padding: 5px 5px;">&nbsp;&nbsp;Revolved AI</a>
+      </div>
+      <div class="message-item mb-2">
+        <a href="/channels/@add" class="message-item-link"><img src="/assets/images/addserver-icon.png" width="30" style="border-radius: 50%; padding: 5px 5px; margin-bottom: 5px;">&nbsp;&nbsp;Add person</a>
+      </div>
+      <button class="btn btn-primary" style="width: 90%; margin-top: 6px;" onclick="document.body.style.background = '#444'; document.body.classList.add('invisible'); window.location.href = '@settings';">Settings</button>
+          </ul>
+        </div>
+      <div class="user-profile-main" style="position: fixed; bottom: 55px; width: 20%; height: 60px; background: #444444; color: white; padding: 2px; justify-content: left; align-items: center; display: flex;">
+          <img src="/assets/images/Revolution.png" style="border-radius: 50%; width: 35px; margin-right: 10px; display: inline-block;"> <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success rounded-circle" style="border: 6px #444444 solid; cursor: pointer;" onclick="showStatusModal();"></span><h7 style="display: inline-block;"> {{user}}<strong style="color: grey;">#{{usertag}}</strong></h7>
+          <button class="joinNewConv-btn btn-danger" style="border-radius: 6px; border: 0; outline: 0; font-weight: bold; margin-left: 10px;" onclick="window.location.href='/channels/@logoutAction';">Logout</button>
+        </div>
+      <style>.video-player { width: 100%; height: 100px; }</style>
+
+      <div class="channel-messages" style="position: fixed; top: 0; right: 19.45%; scroll-behaviour:smooth;">
+        <div id="loadingMessages" style="margin-left: 2rem; color: white;" hidden>Loading messages...</div>
+        <ul style="list-style: none; scroll-behaviour:smooth;">
+          <li style="padding-left: 10px; color: white; width: 100%;" -onmouseover="const collection = this.children; this.style.background = '#535357'; this.style.color = 'white';" -onmouseout="const collection = this.children; this.style.background = 'transparent'; this.style.color = 'white';"><b><img src="/assets/images/Revolution.png" width="40" style="background: blue; border-radius: 20%;"/> <onclickFunc onclick="newUserPopUpCard('Revolved AI')">Revolved</onclickFunc> <span class="badge" style="background: mediumpurple;">Revolved <i class="fa fa-check"></i></span> </b> <br>Hi! I am the new Revolved AI revolved around Revolution! Ask me any question and I will search the internet quickly to answer it to the best of my ability. Whatever I say and do, does not reflect Revolution's views. If you notice a bad message, make sure to report it on the Revolution Official Discord. I do not save messages.</li>
+        </ul>
+</div>
+
+    <div class="message-input" style="display: inline; border-radius: 8px; padding: 10px 5px; color: white; background: grey;">
+      <div class="user-typing" hidden><span class="material-symbols-outlined">blur_on</span>&nbsp;&nbsp;@RevolvedAI is typing...</div>
+      <div id="input-area">
+        <div type="text" style="font-family: 'Gotham Narrow', monospace; outline: 0;" placeholder="Message @RevolvedAI" contenteditable id="textInput"/>
+        
+        </div> 
+        <button style="width: 50px;"><span class="material-symbols-outlined" id="sendMessage">send</span><!-- <img src="https://kiset.org/resources/ajax-loading.gif">--></button>
+      </div>
+      <div id="read-only" hidden>
+        This channel is read-only.
+      </div>
+      <!--<button onclick="location.reload();">Get</button>-->
+    </div>
+
+<script>
+  const endpoint = "/ai/revolved/get_response";
+
+  document.addEventListener('DOMContentLoaded', async (e) => {
+    document.getElementById('sendMessage').addEventListener('click', async event => {
+      console.log('triggered event');
+      const input = document.querySelector('#input-area div');
+      const channel_messages = document.querySelector('.channel-messages ul');
+      const data = {
+        "query": input.innerHTML.replaceAll('\n','<br/>'),
+        "past50": []
+      }
+      const actualM = `<li style="padding-left: 10px; color: white; width: 100%;" -onmouseover="const collection = this.children; this.style.background = '#535357'; this.style.color = 'white';" -onmouseout="const collection = this.children; this.style.background = 'transparent'; this.style.color = 'white';"><b><img src="/assets/images/Revolution.png" width="40" style="background: blue; border-radius: 20%;"/> <onclickFunc onclick="newUserPopUpCard('guest')">guest</onclickFunc> <span class="badge" style="background: mediumpurple;">BETA TESTER <i class="fa fa-check"></i></span> </b> <br>${data.query}</li>`;
+      channel_messages.insertAdjacentHTML('beforeend', actualM);
+      const user_typing = document.querySelector('.user-typing');
+      user_typing.hidden = false;
+      const request = await fetch(endpoint, {headers:data});
+      const backedData = await request.json();
+      
+      const message = `<li style="padding-left: 10px; color: white; width: 100%;" -onmouseover="const collection = this.children; this.style.background = '#535357'; this.style.color = 'white';" -onmouseout="const collection = this.children; this.style.background = 'transparent'; this.style.color = 'white';"><b><img src="/assets/images/Revolution.png" width="40" style="background: blue; border-radius: 20%;"/> <onclickFunc onclick="newUserPopUpCard('Revolved AI')">Revolved</onclickFunc> <span class="badge" style="background: mediumpurple;">Revolved <i class="fa fa-check"></i></span> </b> <br> ↪ <small>${data.query}</small><br>${backedData.response}</li>`;
+      user_typing.hidden = true;
+      channel_messages.insertAdjacentHTML('beforeend', message);
+    });
+  });
+</script>
+
+<style> 
+  .list-of-people-in-vc {
+    list-style: none;
+  }
+    .input-of-text {
+  border-bottom-color: lightgray;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  outline: none;
+  font-family: 'Gill Sans', sans-serif;
+}
+
+.user-typing {
+  font-family: 'Gill Sans', sans-serif;
+  color: white;
+  display: inline-flex;
+}
+
+.user-card {
+  background: #444;
+  border-radius: 14px;
+  color: white;
+  transition: all 0.5s ease;
+  max-width: 266px;
+  max-height: 389px;
+}
+
+.user-card-c {
+  padding: 10px 15px;
+  max-width: 266px;
+  max-height: 389px;
+}
+
+.user-card .banner-image {
+  background: url('/assets/images/defaultBanner.jpg');
+  background-repeat: no-repeat;
+  background-opacity: 0.3;
+  width: 100%;
+  height: 200px;
+  border-radius: 10px; 
+}
+
+.user-card h3 {
+  font-family: 'Gotham Narrow', monospace, sans-serif;
+}
+
+.user-card .dismiss {
+  padding: 5px;
+  color: white;
+  width: 40px;
+  height: 40px;
+  background: rgba(0,0,0,0.6);
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.user-list {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20%;
+  background: grey;
+  height: 100%;
+  font-family: 'Gotham Narrow', sans-serif;
+}
+
+.user-list span {
+  color: #444;
+  margin-left: 5px;
+}
+
+.user-list ul .user {
+  height: 30px;
+  margin: 5px 5px; 
+  padding-left: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.user-list ul .user:hover {
+  background: #444;
+  color: white;
+}
+
+.user-list ul .user .user-content {
+  display: inline-flex;
+}
+  
+.input-of-text:focus {
+  border-bottom-color: rgb(0, 140, 255);
+  transition: border-bottom-color 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.input-of-text:hover {
+  border-bottom-color: rgb(0, 140, 255);
+  transition: border-bottom-color 0.6s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.button {
+  border-bottom-color: #3131fc;
+  background: #3131fc;
+  color: white;
+  height: 35px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border-left: 0px;
+  border-right: 1px;
+  border-top: 1px;
+  border-radius: 11px;
+  transition: border-bottom-color 2s, background 2s;
+  transition-delay: 0.2s;
+}
+
+.button:hover {
+  background: blue;
+  transition: background 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.button:focus {
+  background: #00aeff;
+  transition: background 0.01 ease-out;
+}
+
+p {
+  font-family: 'Gill Sans', sans-serif;
+}
+
+text {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+  .server-item {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding-bottom: 9px;
+    color: white;
+    background: purple;
+    text-align: center;
+    transition: all 0.5s ease;
+  }
+
+  .server-item:hover {
+    transition: all 0.5s ease;
+    border-radius: 20%;
+  }
+
+  .channel-item-btn:hover {
+    color: white;
+    background: #575757;
+  }
+
+  .channel-item-btn {
+    color: white;
+    background: grey;
+    border: 1px #444444 solid;
+    width: 90%;
+    border-radius: 6px;
+    margin-top: 6px;
+  }
+
+  .leave-server-btn {
+    color: white;
+    border: 1px red solid; 
+    background: darkred;
+  }
+
+  .leave-server-btn:hover {
+    transition: all 2s ease;
+    background: red;
+    border-color: darkred;
+  }
+
+  .message-input {
+    bottom: 8%;
+    left: 21%;
+    overflow: hidden;
+    display: flex;
+    position: absolute;
+    width: 58%;
+    background: #222222 !important;
+    border-radius: 6px !important;
+    font-family: 'Gotham Narrow', sans-serif !important;
+  }
+
+  .message-input button {
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: linear-gradient(-45deg, white, blue);
+    color: white;
+    font-weight: 500;
+  }
+  .channel-messages {
+    overflow: scroll;
+    height: 80%;
+    width: 62%;
+    max-width: 80%;
+    overflow-x:hidden;
+    font-family: 'Gotham Narrow', sans-serif !important;
+  }
+
+  onclickFunc {
+    color: skyblue;
+    cursor: pointer;
+  }
+
+  @keyframes fadeAnim {
+    0% { opacity: 0; },
+    100% { opacity: 1; }
+  }
+
+  onclickFunc:hover {
+    text-decoration: underline;
+  }
+
+  button.primary {
+    color: white;
+    background: rgb(80,80,80);
+    width: fit-content;
+    font-size: 16px;
+    padding: 12px;
+    outline: 0;
+    border: 0;
+    border-radius: 6px;
+    transition: 0.1s all;
+  }
+
+  button.primary:hover {
+    background: rgb(40,40,40);
+    transition: 0.1s all;
+  }
+
+  button.success {
+    color: white;
+    background: rgb(0,100,0);
+    width: fit-content;
+    font-size: 16px;
+    padding: 12px;
+    outline: 0;
+    border: 0;
+    border-radius: 6px;
+    transition: 0.1s all;
+  }
+
+  button.success:hover {
+    background: rgb(0,50,0);
+    transition: 0.1s all;
+  }
+
+  button.warning {
+    color: black;
+    background: rgb(255,240,100);
+    width: fit-content;
+    font-size: 16px;
+    padding: 12px;
+    outline: 0;
+    border: 0;
+    border-radius: 6px;
+    transition: 0.1s all;
+  }
+
+  button.warning:hover {
+    background: rgb(190, 172, 24);
+    transition: 0.1s all;
+  }
+
+  button.danger {
+    color: white;
+    background: rgb(255,0,0);
+    width: fit-content;
+    font-size: 16px;
+    padding: 12px;
+    outline: 0;
+    border: 0;
+    border-radius: 6px;
+    transition: 0.1s all;
+  }
+
+  button.danger:hover {
+    background: rgb(245, 0, 0);
+    transition: 0.1s all;
+  }
+
+  doctype {
+    height: 100%;
+  }
+
+  .message-item {
+    height: 30px;
+    width: 90%;
+    background: lightgray;
+    border-radius: 6px;
+    display: flex;
+    float: left;
+    align-items: center;
+    padding: 5px 5px;
+    background: #444;
+  }
+
+  .message-item:hover {
+    background: #333;
+  }
+
+  .message-item-link {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #dedbd1;
+  }
+
+  .message-item-link:hover {
+    color: white;
+  }
+  </style>
+    </div>
+</body>
+</html>

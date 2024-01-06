@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a Token | Revolution Developer Portal</title>
+</head>
+<body>
+  <div class="modal" hidden>
+    <div class="modal-content">
+      
+    </div>
+  </div>
+  <h1><button>Create a Token</button></h1>
+  <h2>Tokens</h2>
+  {% for i in session['tokens'] %}
+    <li>
+      <data>Token: {{i['token']}}</data>
+      <data>Status: {{i['online']}}</data>
+      <p>Token data may be displayed incorrectly.</p>
+    </li>
+  {% endfor %}
+  <script>alert("We are working on this page currently. (scheduled maintenance: Jul 7, AEST)");</script>
+  <script>
+    document.querySelector('.modal').style.display = "none";
+    function showNewModal(content, time) {
+      let Modal = document.querySelector('.modal');
+      let ModalInnerContent = document.querySelector('.modal-content');
+      ModalInnerContent.innerHTML = "<img style='width:50px;' src='/assets/images/revolution loading.gif'>";
+      Modal.hidden = false;
+      Modal.style.display = "";
+      setTimeout(function() {
+        ModalInnerContent.innerHTML = content;
+        return Modal
+      },(time))
+    }
+    
+    const createToken = (async function() {
+      const modal = showNewModal(`
+      <p>HELLO!</p>
+      `, 10000)
+    });
+    
+  </script>
+  <link rel="stylesheet" href="/static/css/modals.css"/>
+</body>
+</html>

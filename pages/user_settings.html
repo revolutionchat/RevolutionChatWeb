@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+/*if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker
+      .register("/serviceWorker.js")
+      .then(res => console.log("service worker registered - serviceWorker.js"))
+      .catch(err => console.log("service worker not registered - ", err))
+  })
+}*/
+  </script>
+
+  <!--<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+
+  <script>
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+      OneSignal.init({
+        appId: "ce7d349e-907c-461b-b575-7f498e15f81a",
+      });
+    });
+  </script>-->
+  
+    <meta name="apple-mobile-web-app-status-bar" content="#fff" />
+    <meta name="theme-color" content="#db4938" />
+    <link rel="apple-touch-icon" href="/assets/images/Goobler-meowsicles.png" />
+    <link rel="manifest" href="/static/manifest.webmanifest">
+    <meta name="description" content="Revolution created PWA Application">
+  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Settings | Revolution</title>
+  <link href="/static/css/user-settings.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <style>@font-face { font-family: "Gotham Narrow"; src: url("/static/fonts/gotham-narrow-book.woff2"); }</style>
+</head>
+<body>
+  <header>
+    <!-- for important things like modals -->
+  </header>
+	<div class="sidebar-user-settings">
+    <ul>
+			<br>
+		  <h1 class="sidebar-heading">User Settings</h1>
+      <hr class="sidebar-split">
+			<li class="sidebar-list-item active-tab" onclick="selectItemSidebar(this)" itemref="#overview">Overview</li>
+      <li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#privacy-and-safety">Privacy & Safety</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#devices">Devices</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#connections">Connections</li>
+			<br>
+		  <h1 class="sidebar-heading">Payment Settings</h1>
+			<!--<hr class="sidebar-split">
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#goobux">Goobux</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#upgrades">Upgrades</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#subscriptions">Subscriptions</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#inventory">Inventory</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#billing">Billing</li>
+			<br>-->
+		  <h1 class="sidebar-heading">App Settings</h1>
+			<hr class="sidebar-split">
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#appearance">Appearance</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#accessibility">Accessibility</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#voice-and-video">Voice & Video</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#messages">Messages</li>
+			<!--<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#notifications">Notifications</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#keybinds">Keybinds</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#language">Language</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#advanced">Advanced</li>
+			<br>
+		  <h1 class="sidebar-heading">Activity Settings</h1>
+			<hr class="sidebar-split">
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#activity-privacy">Activity Privacy</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#games">Games</li>
+			<br>-->
+		  <h1 class="sidebar-heading">Admin Area</h1>
+			<hr class="sidebar-split">
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#portal">Portal</li>
+			<li class="sidebar-list-item" onclick="selectItemSidebar(this)" itemref="#experiments">Experiments</li>
+    </ul>
+	</div>
+  <div class="settings">
+    <div class="user-settings">
+      <section id="overview">
+        <h2>  Overview</h2>
+        <hr class="sidebar-split">
+        <div class="profile-view">
+          <img src="/assets/images/Goobler-meowsicles-2.jpg" width="80" draggable="false">
+          <div class="information">
+            <h3>{{user}}#{{usertag}}</h3>
+            <!--<span>A little butterfly, fluttering in the moonlight 🌙</span>
+            <h5>User description</h5>-->
+            <span>{{useri['description']|safe}}</span>
+          </div>
+          <button class="primary"> Edit </button>
+        </div><br>
+        <div class="email-settings">
+          <p>Your Email: <span onclick="changeInnerHTMLtoValueFromLocalStorage(this, 'email')">click to reveal</span></p>
+          <p>Your Phone Number: <span onclick="changeInnerHTMLtoValueFromLocalStorage(this, 'phone')">click to reveal</span></p>
+          <button class="primary" onclick="createModal(`<h2>Connect your Email</h2><hr class='sidebar-split'><br><form><input type='email' required placeholder='Change Email' class='emailfield u'><br><br><button type='button' class='primary' onclick='changeEmail(this)'>Connect</button></form>`);">Change email</button> <button class="primary" onclick="fetch('/api/email/send/test/Goobler',{headers:{'email': localStorage.getItem('email'), 'subject': 'Goobler Chat test email', 'message': `Hello!<br>Welcome to the Goobler Chat platform.<br>We got a request for someone <b>sending a test email</b>.<br><br>Thank you,<br>Goobler Chat <img src='https://chat.goobler.ga/assets/images/Goobler-meowsicles.png' width=35 />`}})">Send a test email</button>
+          <button class="primary" onclick="createModal(`<h2>Connect your Phone Number</h2><hr class='sidebar-split'><br><form onsubmit='changePhone(); return false;'><input type='tel' pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}' required placeholder='Phone Number' class='phonefield u'><br><br><button class='primary'>Connect</button></form>`);">Change phone</button>
+        </div>
+      </section>
+      <section id="privacy-and-safety">
+        <h2>  Privacy & Safety</h2>
+        <hr class="sidebar-split">
+        <p>Your privacy is important to us. All of our accounts are stored in <a href="https://firebase.google.com/docs/auth" target="_blank">Firebase</a> and our messages are going to be stored in <a href="https://firebase.google.com/docs/database" target="_blank">Firebase</a>, for more information, click the hyperlinks to learn more.</p>
+      </section>
+      <section id="devices">
+        <h2>  Devices</h2>
+        <hr class="sidebar-split">
+        <div class="profile-view">
+          <img src="/assets/images/Goobler-meowsicles-2.jpg" width="80" draggable="false">
+          <div class="information">
+            <h3 onload="determineDevice(this)" id="deviceName">Unknown</h3>
+            <span>Unknown device.</span>
+          </div>
+          <button class="primary"> Edit </button>
+        </div><br>
+      </section>
+      <section id="connections">
+        <h2>  Connections</h2>
+        <hr class="sidebar-split">
+        <div class="profile-view">
+          <img src="/assets/images/Goobler-meowsicles-2.jpg" width="80" draggable="false">
+          <div class="information">
+            <h3>Revolution</h3>
+            <span>Official Revolution extension. Connected automatically by Revolution.</span>
+          </div>
+          <button class="danger" disabled>Revoke</button>
+        </div><br>
+      </section>
+    </div>
+    <!--<div class="payment-settings">
+      <section id="goobux">
+        <h2>  Goobux</h2>
+        <hr class="sidebar-split">
+        <p>Goobux is a form of currency on Goobler which can get you certain badges, plugins, rockets and more exclusive items. Gifting Goobux to different people can increase their subscription to the next level. Learn more about Goobux <a href="https://chat.goobler.ga/store">here</a>.</p>
+        <div class="profile-view">
+          <img src="/assets/images/Goobler-meowsicles-2.jpg" width="80" draggable="false">
+          <div class="information">
+            <h3>400 Goobux</h3>
+            <span>from Goobler.</span>
+            <small>Welcome gift!</small>
+          </div>
+        </div><br>
+      </section>
+      <section id="upgrades">
+        <h2>  Upgrades</h2>
+        <hr class="sidebar-split">
+        <p>Here you can upgrade your Goobux subscription to a higher level.</p>
+        <div class="profile-view">
+          <img src="/assets/images/addserver-icon.png" width="85" height="85"/>
+          <div class="information">
+            <h3><address style="color:green;">Small</address> premium plan - £4.59</h3>
+            <span>One time payment includes 400 Goobux, access to exclusive store and Goobler Supporter badge.</span>
+            <small>Monthly payment includes 450 Goobux a month, access to exclusive store, access to Subscriber Exclusive Items, Goobux Subscriber badge and Goobler Supporter badge.</small>
+          </div>
+          <button class="danger" disabled>Upgrade</button>
+        </div><br>
+        <div class="profile-view">
+          <img src="/assets/images/addserver-icon.png" width="85" height="85"/>
+          <div class="information">
+            <h3><address style="color:yellow;">Mid-tier</address> premium plan - £8.99</h3>
+            <span>One time payment includes 800 Goobux, access to exclusive store and Goobler Supporter badge.</span>
+            <small>Monthly payment includes 1,000 Goobux a month, access to exclusive store, access to Subscriber Exclusive Items, Goobux Subscriber badge, Goobler Supporter badge, 10 Server Boosts and Server Booster badge</small>
+          </div>
+          <button class="danger" disabled>Upgrade</button>
+        </div><br>
+        <div class="profile-view">
+          <img src="/assets/images/addserver-icon.png" width="85" height="85"/>
+          <div class="information">
+            <h3><address style="color:red;">Full</address> premium plan - £18.49</h3>
+            <span>One time payment includes 1,700 Goobux, access to exclusive store and Goobler Supporter badge.</span>
+            <small>Monthly payment includes 2,200 Goobux a month, access to exclusive store, access to Subscriber Exclusive Items, Goobux Subscriber badge, Goobler Supporter badge, 20 Server Boosts and Server Booster badge.</small>
+          </div>
+          <button class="danger" disabled>Upgrade</button>
+        </div><br>
+        <div class="profile-view">
+          <img src="/assets/images/addserver-icon.png" width="85" height="85"/>
+          <div class="information">
+            <h3><address style="color:cyan;">Super</address> premium plan - £46.49</h3>
+            <span>One time payment includes 4,500 Goobux, access to exclusive store, Goobler Supporter badge and Goobler Premium badge.</span>
+            <small>Yearly payment includes 5,700 Goobux a month, access to exclusive store, access to Subscriber Exclusive Items, Goobux Subscriber badge, Goobler Supporter badge, 30 Server Boosts, Server Booster badge and Goobler Premium badge.</small>
+          </div>
+          <button class="danger" disabled>Upgrade</button>
+        </div><br>
+        <div class="profile-view">
+          <img src="/assets/images/addserver-icon.png" width="85" height="85"/>
+          <div class="information">
+            <h3><address style="color:mediumpurple;">Mega</address> premium plan - £92.99</h3>
+            <span>One time payment includes 10,000 Goobux, access to exclusive store, Goobler Supporter badge and Goobler Super Premium badge.</span>
+            <small>Yearly payment includes 12,000 Goobux a month, access to exclusive store, access to Subscriber Exclusive Items, Goobux Subscriber badge, Goobler Supporter badge, 40 Server Boosts, Server Booster badge and Goobler Super Premium badge.</small>
+          </div>
+          <button class="danger" disabled>Upgrade</button>
+        </div><br>
+      </section>
+      <section id="subscriptions">
+        <h2>  Subscriptions</h2>
+        <hr class="sidebar-split">
+        <h3>Your subscription:</h3>
+        <div class="profile-view">
+          <img src="/assets/images/addserver-icon.png" width="85" height="85"/>
+          <div class="information">
+            <h3><address style="color:green;">Free</address> plan - £0.00</h3>
+            <span>Default plan</span>
+            <small>You are not being charged for this plan. You can upgrade by clicking the button on the side if you want Goobux or a premium plan.</small>
+          </div>
+          <button class="success" onclick="window.location.href='#upgrades';">Upgrade</button>
+          &nbsp;
+          <button class="danger" disabled>Revoke</button>
+        </div><br>
+        <p>* Revolution's premium system charges money from your account after the trial ends if you are still using our platform.</p>
+        <p>* If you had purchased a one-time payment upgrade, you should have Goobux in your account after your credit card is charged. We will not request payment from you after.</p>
+        <p>To keep you safe, we request through your email whether we should charge you. If not, you'll recieve an automated phone call asking you to press a key on the Keypad.</p>
+      </section>
+      <section id="inventory">
+        <h2>  Your inventory</h2>
+        <hr class="sidebar-split">
+        <h3>Gifts</h3>
+        <div class="profile-view">
+          <img src="/assets/images/redeem.png" width="85" height="85"/>
+          <div class="information">
+            <h3><address style="color:green;">Free</address> plan - £0.00</h3>
+            <span>Default plan</span>
+            <small>You are not being charged for this plan. You can upgrade by clicking the button on the side if you want Goobux or a premium plan.</small>
+          </div>
+          <button class="success" onclick="window.location.href='#upgrades';">Upgrade</button>
+          &nbsp;
+          <button class="danger" disabled>Revoke</button>
+        </div><br>
+        <p>* Revolution's premium system charges money from your account after the trial ends if you are still using our platform.</p>
+        <p>* If you had purchased a one-time payment upgrade, you should have Goobux in your account after your credit card is charged. We will not request payment from you after.</p>
+        <p>To keep you safe, we request through your email whether we should charge you. If not, you'll recieve an automated phone call asking you to press a key on the Keypad.</p>
+      </section>
+      <section id="billing">
+        <h2>  Billing</h2>
+        <hr class="sidebar-split">
+        <h3>Payment methods</h3>
+        <div class="profile-view">
+          <img src="/assets/images/redeem.png" width="85" height="85"/>
+          <div class="information">
+            <h3><address style="color:green;">Unknown</address> payment method - £0.00 charged</h3>
+            <span>Card defaulted to this for Goobler Chat.</span>
+            <small>Add your credit or payment card here for nessacery payments like Goobux, Rockets and Plans.</small>
+          </div>
+          <button class="success" onclick="alert('Unknown action requested, this has been reported.')">Change</button>
+          &nbsp;
+          <button class="danger" disabled>Remove</button>
+        </div><br>
+        <p>* Our system does not require your credit or debit card straight up.</p>
+        <p>* Unknown payments will be refunded.</p>
+        <p>To keep you safe, we request through your email whether we should charge you. If not, you'll recieve an automated phone call asking you to press a key on the Keypad.</p>
+      </section>-->
+      <section id="appearance">
+        <h2>  Appearance</h2>
+        <hr class="sidebar-split">
+        <h3>Theme</h3>
+        <div class="profile-view">
+          <img src="/assets/images/redeem.png" width="85" height="85"/>
+          <div class="information">
+            <h3><address style="color:green;">Dark mode is selected</address></h3>
+            <span>Theme defaulted to this for Revolution</span>
+            <small>This theme is selected</small>
+          </div>
+          <button class="success" onclick="alert('Error changing theme')">Change</button>
+        </div><br>
+      </section>
+      <section id="accessibility">
+        <h2>  Accessibility</h2>
+        <hr class="sidebar-split">
+        <p>There are no settings for this one.</p>
+      </section>
+      <section id="voice-and-video">
+        <h2>  Voice & Video</h2>
+        <hr class="sidebar-split">
+        <div class="profile-view">
+          <img src="/assets/images/redeem.png" width="85" height="85"/>
+          <div class="information">
+            <h3><address style="color:green;">Grant access to use the microphone</address></h3>
+            <span></span>
+            <small>You need to grant microphone permissions to go in voice channels.</small>
+          </div>
+          <button class="success" onclick="navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {return stream.getTracks().forEach(function(s) {s.stop(); alert('Audio access has been granted.')})});">Grant</button>
+        </div><br>
+        
+        <div class="profile-view">
+          <img src="/assets/images/redeem.png" width="85" height="85"/>
+          <div class="information">
+            <h3><address style="color:green;">Grant access to use the computer camera</address></h3>
+            <span></span>
+            <small>You need to grant video permissions to use the camera.</small>
+          </div>
+          <button class="success" onclick="navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {return stream.getTracks().forEach(function(s) {s.stop(); alert('Camera access has been granted.')})});">Grant</button>
+        </div><br>
+      </section>
+      <section id="messages">
+        <h2>  Messages</h2>
+        <hr class="sidebar-split">
+        <p>There are no settings for this one.</p>
+      </section>
+      <section id="voice-and-video">
+        <h2>  Notifications</h2>
+        <hr class="sidebar-split">
+        <div class="profile-view">
+          <img src="/assets/images/redeem.png" width="85" height="85"/>
+          <div class="information">
+            <h3><address style="color:green;">Grant access to give notifications</address></h3>
+            <span></span>
+            <small>You need to grant notifications to get notified when someone sends a message to a server or group/direct messages.</small>
+          </div>
+          <button class="success" onclick="OneSignal.showNativePrompt();">Grant</button>
+        </div><br>
+      </section>
+    </div>
+  </div>
+  <script>if (!localStorage.getItem('viewedSettingsPage')) { createModal() }</script>
+
+  <script src="/static/js/user-settings.js"></script>
+        
+</body>
+</html>

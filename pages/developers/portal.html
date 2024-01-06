@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title>Revolution App Dev Portal | Sign up for the Beta API!</title>
+    <link href="/static/css/devportal.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  </head>
+  <body class="loadingInProgress">
+    <noscript>Please enable JavaScript. JavaScript is what allows this page to work.</noscript>
+    <div class="modals">
+      
+    </div>
+    <div class="loadingScreen">
+      <div class="loadingText">Loading...</div>
+    </div>
+    <div class="pageNotFound" hidden>
+      <h1>Sorry</h1>
+      <p>We could not find this page. Looks like a invalid link? Check it and try again.</p>
+    </div>
+    <div class="app" hidden>
+      <!-- screens -->
+      <div class="app screen_betahome" hidden>
+        <h1>You need permission to beta test.</h1>
+        <p>We are working our magic while you wait until the time is right. You will be able to create tokens, manage your account applications here and hopefully collaborate with a team on a project or application!</p>
+      </div>
+      <div class="app screen_home" hidden>
+        <div class="flex rw heading__main-2306"><h1 class="start">Your developer portal</h1><button class="bg blurple end rbutton">New Application</button></div>
+        <p>Welcome to our Dev Portal! A list of applications are below. Click on one to edit it. You can create a new application by clicking the button above.</p>
+        <div class="portal__applications">
+          No applications found.
+        </div>
+      </div>
+      <div class="app screen_configure_app" hidden>
+        <div class="flex rw heading__main-2306"><h1 class="appname-configure">AppName</h1></div>
+        <p>You can configure your applications on this page, change the token, view the token, and add your bot to servers!</p>
+        <div class="settings">
+          <small class="grey-text">BOT TOKEN</small><br>
+          <input class="discord-styled bot-token-input" type="text" value="Unknown" readonly width="600">
+          <button class="bg blurple rbutton end">Reset Token</button>
+          <br>
+          <small class="grey-text">CLIENT ID</small><br>
+          <input class="discord-styled client-id-input" type="text" value="Unknown" readonly width="600"><br>
+          <small class="grey-text">BOT NAME</small><br>
+          <input class="discord-styled name-input" type="text" value="Unknown"><br>
+          
+          <br>
+          <button class="bg blurple rbutton end add-bot-to-server">Add Bot to a Server</button>
+          <br><br>
+
+          <button class="bg blurple rbutton end">Save Configuration</button>
+        </div>
+      </div>
+    </div>
+    <script src='/static/js/devportal.js'></script>
+  </body>
+</html>

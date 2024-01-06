@@ -1,0 +1,544 @@
+<DOCTYPE html>
+<html style="margin: 0; overflow: hidden; background: grey; scroll-behaviour:smooth;">
+  <head>
+    <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker
+      .register("/serviceWorker.js")
+      .then(res => console.log("service worker registered - serviceWorker.js"))
+      .catch(err => console.log("service worker not registered - ", err))
+  })
+}
+  </script>
+  
+    <meta name="apple-mobile-web-app-status-bar" content="#fff" />
+    <meta name="theme-color" content="#db4938" />
+    <link rel="apple-touch-icon" href="/assets/images/Revolution.png" />
+    <link rel="manifest" href="/static/manifest.webmanifest">
+    <meta name="description" content="Revolution created PWA Application">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/f110c9db95.js" crossorigin="anonymous"></script>
+    <title>{{channel}} | Revolution</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    
+    <div class="alert" id="network-change-alert" style="color: blue;" hidden>
+      <span class="material-symbols-outlined">wifi</span> &nbsp;&nbsp; Your network connectivity is unstable and we can't connect you.
+    </div>
+    <script src="/static/js/connectivity-check.js"></script>
+    
+    <style>@font-face { font-family: "Gotham Narrow"; src: url("/static/fonts/gotham-narrow-book.woff2"); }</style>
+<style>
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: grey; 
+}
+</style>
+  </head>
+  <body style="margin: 0; background: grey; overflow: hidden;">
+
+    <header>
+      <!-- for important things like modals -->
+    </header>
+    <!-- page content code -->
+    <div class="content" style="background-color: #2f3136; scroll-behaviour:smooth;">
+
+      <div class="bottom-nav" style="background-color: black; position: fixed; bottom: 0; float: left; width: 100%;">
+    <!-- NAV BAR CODE -->
+    <a href="/channels/@me"><img class="logo" src="/assets/images/Revolution-TR.png" style="width: 50px; padding: 10px 5px 8px 5px; border-right:2px darkgrey solid; background: rgba(56,56,56,0.5); border-radius: 20%;"></img></a>
+    <a href="/channels/@join">
+    <img class="server-icons" src="/assets/images/addserver-icon.png" style="width: 50px; padding: 10px 5px 5px 5px;"></img></a>
+    {% for item in guilds %}
+      {% if sName == item['name'] %}
+        <a href="/channels/@s/{{item['serverid']}}">
+          <button class="server-item" style="border-radius:20%; background-image: url('{{item['imgurl']|safe}}'); border: none; height: 50px; width: 50px; background-size: 100%;"><span style="visibility: hidden;">server.item</span></button>
+        </a>
+      {% else %}
+        <a href="/channels/@s/{{item['serverid']}}">
+          <button class="server-item" style="background: url('{{item['imgurl']}}'); background-size: 100%; border: none;"><span style="visibility: hidden;">server.item</span></button>
+        </a>
+      {% endif %}
+    {% endfor %}
+    {% if 'joinedServer' in session %}
+      <a href="/channels/@sLocal/{{session.get('joinedServer')['serverid']}}">
+        <button class="server-item">{{session.get("joinedServer")["abbr"]}}</button>
+    {% endif %}
+			</div>
+      
+      <div class="channel-list">
+
+        <div class="flex-shrink-0 p-3" style="width: 20%; height: 100%; background: #222222; color: white;">
+    <a href="#" class="d-flex align-items-center pb-3 mb-3 link-light text-decoration-none" style="background: rgba(56,56,56,1); padding: 5px 5px; border-radius: 10px;">
+      <img class="logo" src="{{sLogo}}" style="width: 50px;border-radius:20%;">&nbsp;{{sName}} &nbsp;✓</img> 
+    </a>
+    <div class="border-top" style="border-image: linear-gradient(to right, {{sColor}}, darkorchid) 1;"></div>
+    <ul class="list-unstyled ps-0">
+      {% for channel in sChannels %}
+        <li class="nav-item"><button class="channel-item-btn" onclick="switchChannel(this)" name="{{channel}}">
+          <i class="fas fa-hashtag" style="float: left;"></i>
+          {{channel}}
+        </button></li>
+      {% endfor %}
+      <li class="nav-item"><button class="channel-item-btn" id="join-btn">
+          <i class="fas fa-music" style="float: left;"></i>
+          VC
+        </button></li>
+      
+      <ul class="list-of-people-in-vc">
+        <li><img src="/" width="20" style="border-radius: 50%; background: orange;">&nbsp;VC Monitor</li>
+      </ul>
+      
+      <li class="nav-item"><button class="channel-item-btn"  id="leave-btn">
+          <i class="fas fa-x" style="float: left;"></i>
+          Leave "VC" <button width="10" height="5">Mute</button>
+        </button></li>
+      <small style="color: #575757; font-family: 'JetBrains Mono', monospace;">SERVER SETTINGS</small>
+      <li class="nav-item"><button class="channel-item-btn leave-server-btn"  onclick="window.location.href = '/channels/@me';" disabled>
+          <span style="float: left;">&times;</span>
+          Leave Server
+        </button></li>
+      <li class="nav-item"><button class="channel-item-btn leave-server-btn"  onclick="window.location.href = '/channels/@me';">
+          <span style="float: left;">&check;</span>
+          Join Activity
+        </button></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+      <div class="user-list">
+        <span name="member-role">1 - Member</span>
+        <ul name="member-role">
+          <div class="user">
+            <img src="/assets/images/Revolution.png" width="30" style="border-radius: 50%;">
+            <div class="user-content">
+              <p class="name">{{user}}</p>
+              <small class="status">- Online</small>
+            </div>
+          </div>
+        </ul>
+        <span name="offline-role">Offline</span>
+        <ul name="offline-role">
+          {% for user2 in users_chatted_in_server %}
+            {% if user2['name'] == user %}
+            {% else %}
+              <div class="user" onclick="newUserPopUpCard({{user2['id']}})">
+                <img src="/assets/images/Revolution.png" width="30" style="border-radius: 50%;">
+                <div class="user-content">
+                  <p class="name">{{user2['name']}}</p>
+                  <small class="status">- Offline</small>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="user-profile-main" style="position: fixed; bottom: 55px; width: 20%; height: 60px; background: #444444; color: white; padding: 2px; justify-content: left; align-items: center; display: flex;">
+          <img src="/assets/images/Revolution.png" style="border-radius: 50%; width: 35px; margin-right: 10px; display: inline-block;"> <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success rounded-circle" style="border: 6px #444444 solid; cursor: pointer;" onclick="showStatusModal();"></span><h7 style="display: inline-block;"> {{user}}<strong style="color: grey;">#{{usertag}}</strong></h7>
+          <button class="joinNewConv-btn btn-danger" style="border-radius: 6px; border: 0; outline: 0; font-weight: bold; margin-left: 10px;" onclick="window.location.href='/channels/@logoutAction';">Logout</button>
+        </div>
+      <style>.video-player { width: 100%; height: 100px; }</style>
+
+      <div class="channel-messages" style="position: fixed; top: 0; right: 19.45%; scroll-behaviour:smooth;">
+        <div id="loadingMessages" style="margin-left: 2rem; color: white;" hidden>Loading messages...</div>
+        <ul style="list-style: none; scroll-behaviour:smooth;">
+          {% for each in message_list['messages'] %}
+            <li style="padding-left: 10px; color: white; width: 100%;" onmouseover="const collection = this.children; this.style.background = '#535357'; this.style.color = 'white';" onmouseout="const collection = this.children; this.style.background = 'transparent'; this.style.color = 'white';"><b><img src="/assets/images/Revolution.png" width="40" style="background: blue; border-radius: 20%;"/> <onclickFunc onclick="newUserPopUpCard('{{each['sent_by']}}')">{{each['sent_by']}}</onclickFunc> <span class="badge" style="background: mediumpurple;">TESTER <i class="fa fa-check"></i></span> </b> <br>{{each['message']}}</li>
+          {% endfor %}
+        </ul>
+        <li id="pv-message-replies" style="background: rgb(135, 206, 235, 0.5); width: 100%; margin-top: 6px;" hidden><b>&nbsp;Private message <span class="badge" style="background: mediumpurple;">SYSTEM <i class="fa fa-check"></i></span> </b> <br><label><i style="color: white;">&nbsp;You do not have permission to execute potentially dangerous code. This code has been blocked as it violates the no malware policy.</i> <br> <a href="#" onclick="document.querySelector('#pv-message-replies').hidden = true">&nbsp;&nbsp;Dismiss private message</a> </label></li>
+        <section id="new-msgs"></section>
+      </div>
+</div>
+
+    <div class="message-input" style="display: inline; border-radius: 8px; padding: 10px 5px; color: white; background: grey;">
+      <div class="user-typing" hidden><span class="material-symbols-outlined">blur_on</span>&nbsp;&nbsp;A user is typing...</div>
+      <div id="input-area">
+        <div type="text" style="font-family: 'Gotham Narrow', monospace; outline: 0;" placeholder="Message {{channel}}" contenteditable id="textInput"/>
+        
+        </div> 
+        <button style="width: 50px;" onclick="sendMessageToChannel('{{channel}}')"><span class="material-symbols-outlined" id="sendMessage">send</span><!-- <img src="https://kiset.org/resources/ajax-loading.gif">--></button>
+        <button onclick="document.querySelector('#textInput').insertAdjacentText('beforeend', '<b></b>');"><span class="material-symbols-outlined">format_bold</span></button>
+        <button onclick="document.querySelector('#textInput').insertAdjacentText('beforeend', '<i></i>');"><span class="material-symbols-outlined">format_italic</span></button>
+        <button onclick="document.querySelector('#textInput').insertAdjacentText('beforeend', `<a href='#insertLinkHere'>#yourDisplayText</a>`);"><span class="material-symbols-outlined">link</span></button>
+        <button onclick="document.querySelector('#textInput').insertAdjacentText('beforeend', `<button link='#addALink' color='green'>your display text</button>`);"><span class="material-symbols-outlined">smart_button</span></button>
+      </div>
+      <div id="read-only" hidden>
+        This channel is read-only.
+      </div>
+      <!--<button onclick="location.reload();">Get</button>-->
+    </div>
+
+<!--<div class="vc-youtube-window"><embed class="vc-youtube-window-frame" src="https://youtube.com"></div>--> 
+
+<script>
+    // CHANNEL AUTOMATION
+
+    let channels = [{% for ch in sChannels %}"{{ch}}",{% endfor %}]
+    let currChannel = location.hash === "" ? channels[0] : location.hash.split("#")[1]
+    document.getElementsByTagName("title")[0].textContent = "#" + currChannel + " | Revolution"
+
+  const fetchInfo = (readonly) => {
+    if (readonly.includes(currChannel)) {
+        //document.getElementById("textInput").contentEditable = false
+        //document.getElementById("sendMessage").disabled = true
+        document.getElementById("read-only").hidden = false;
+        document.getElementById("input-area").hidden = true;
+      } else {
+        //document.getElementById("textInput").contentEditable = true
+        //document.getElementById("sendMessage").disabled = false
+        document.getElementById("read-only").hidden = true;
+        document.getElementById("input-area").hidden = false;
+      }
+  };
+  fetchInfo(JSON.parse(("{{sReadonly}}").replace(/&#39;/g, '"'))); // you are doing awesome!
+    function switchChannel(element) {
+      // Find the element in the list and if it exists, switch to it.
+      const channelList = document.querySelector('.channel-list')
+      //if ("{{sId}}" === "deltarune") {
+        //window.location = "https://deltarune.com"
+      currChannel = element.name
+      location.hash = "#" + element.name
+      document.getElementsByTagName("title")[0].textContent = "#" + element.name + " | Revolution"
+      //}
+      getNewMessages()
+      websck.send(JSON.stringify({ "type": "resetfollowlist", "token": "guest" }));
+      websck.send(JSON.stringify({ "type": "follow", "channels": [sId + "~" + currChannel], "token": "guest" }));
+      fetchInfo(sReadonly)
+    }
+    
+  </script>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+  <script src="/static/js/firebaseServerMain.js" type="module"></script>
+  <script src="/static/js/mix-bot.js" defer></script>
+  <script src="/static/js/gooblerchat-bot.js" defer></script>
+  <script src="/static/js/executeAll-bots.js"></script>
+  <script type="text/javascript" src="/static/js/server-messaging.js"></script>
+    <script>registerUser('{{user}}', '{{usertag}}', {{uid}});</script>
+    <script>registerS('{{sName}}', '{{sABBR}}', '{{sDefaultChannel}}', '{{sId}}', '{{sColor}}', "{{sReadonly}}");</script>
+    <script>
+      function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+      c = hexToRgb('{{sColor}}')
+      document.querySelector('.d-flex.align-items-center').style.background = `rgba(${c["r"]},${c["g"]},${c["b"]},0.5)`;
+    </script>
+<style> 
+  .list-of-people-in-vc {
+    list-style: none;
+  }
+    .input-of-text {
+  border-bottom-color: lightgray;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  outline: none;
+  font-family: 'Gill Sans', sans-serif;
+}
+
+.user-typing {
+  font-family: 'Gill Sans', sans-serif;
+  color: white;
+  display: inline-flex;
+}
+
+.user-card {
+  background: #444;
+  border-radius: 14px;
+  color: white;
+  transition: all 0.5s ease;
+}
+
+.user-card-c {
+  padding: 10px 15px;
+}
+
+.user-card .banner-image {
+  background: url('/assets/images/defaultBanner.jpg');
+  background-repeat: no-repeat;
+  background-opacity: 0.3;
+  width: 100%;
+  height: 200px;
+  border-radius: 10px; 
+}
+
+.user-card h3 {
+  font-family: 'Gotham Narrow', monospace, sans-serif;
+}
+
+.user-card .dismiss {
+  padding: 5px;
+  color: white;
+  width: 40px;
+  height: 40px;
+  background: rgba(0,0,0,0.6);
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.user-list {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20%;
+  background: grey;
+  height: 100%;
+  font-family: 'Gotham Narrow', sans-serif;
+}
+
+.user-list span {
+  color: #444;
+  margin-left: 5px;
+}
+
+.user-list ul .user {
+  height: 30px;
+  margin: 5px 5px; 
+  padding-left: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.user-list ul .user:hover {
+  background: #444;
+  color: white;
+}
+
+.user-list ul .user .user-content {
+  display: inline-flex;
+}
+  
+.input-of-text:focus {
+  border-bottom-color: rgb(0, 140, 255);
+  transition: border-bottom-color 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.input-of-text:hover {
+  border-bottom-color: rgb(0, 140, 255);
+  transition: border-bottom-color 0.6s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.button {
+  border-bottom-color: #3131fc;
+  background: #3131fc;
+  color: white;
+  height: 35px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border-left: 0px;
+  border-right: 1px;
+  border-top: 1px;
+  border-radius: 11px;
+  transition: border-bottom-color 2s, background 2s;
+  transition-delay: 0.2s;
+}
+
+.button:hover {
+  background: blue;
+  transition: background 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.button:focus {
+  background: #00aeff;
+  transition: background 0.01 ease-out;
+}
+
+p {
+  font-family: 'Gill Sans', sans-serif;
+}
+
+text {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+  .server-item {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding-bottom: 9px;
+    color: white;
+    background: purple;
+    text-align: center;
+    transition: all 0.5s ease;
+  }
+
+  .server-item:hover {
+    transition: all 0.5s ease;
+    border-radius: 20%;
+  }
+
+  .channel-item-btn:hover {
+    color: white;
+    background: #575757;
+  }
+
+  .channel-item-btn {
+    color: white;
+    background: grey;
+    border: 1px #444444 solid;
+    width: 90%;
+    border-radius: 6px;
+    margin-top: 6px;
+  }
+
+  .leave-server-btn {
+    color: white;
+    border: 1px red solid; 
+    background: darkred;
+  }
+
+  .leave-server-btn:hover {
+    transition: all 2s ease;
+    background: red;
+    border-color: darkred;
+  }
+
+  .message-input {
+    bottom: 8%;
+    left: 21%;
+    overflow: hidden;
+    display: flex;
+    position: absolute;
+    width: 58%;
+    background: #222222 !important;
+    border-radius: 6px !important;
+    font-family: 'Gotham Narrow', sans-serif !important;
+  }
+
+  .message-input button {
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: linear-gradient(-45deg, white, blue);
+    color: white;
+    font-weight: 500;
+  }
+  .channel-messages {
+    overflow: scroll;
+    height: 80%;
+    width: 62%;
+    max-width: 80%;
+    overflow-x:hidden;
+    font-family: 'Gotham Narrow', sans-serif !important;
+  }
+
+  onclickFunc {
+    color: skyblue;
+    cursor: pointer;
+  }
+
+  @keyframes fadeAnim {
+    0% { opacity: 0; },
+    100% { opacity: 1; }
+  }
+
+  onclickFunc:hover {
+    text-decoration: underline;
+  }
+
+  button.primary {
+    color: white;
+    background: rgb(80,80,80);
+    width: fit-content;
+    font-size: 16px;
+    padding: 12px;
+    outline: 0;
+    border: 0;
+    border-radius: 6px;
+    transition: 0.1s all;
+  }
+
+  button.primary:hover {
+    background: rgb(40,40,40);
+    transition: 0.1s all;
+  }
+
+  button.success {
+    color: white;
+    background: rgb(0,100,0);
+    width: fit-content;
+    font-size: 16px;
+    padding: 12px;
+    outline: 0;
+    border: 0;
+    border-radius: 6px;
+    transition: 0.1s all;
+  }
+
+  button.success:hover {
+    background: rgb(0,50,0);
+    transition: 0.1s all;
+  }
+
+  button.warning {
+    color: black;
+    background: rgb(255,240,100);
+    width: fit-content;
+    font-size: 16px;
+    padding: 12px;
+    outline: 0;
+    border: 0;
+    border-radius: 6px;
+    transition: 0.1s all;
+  }
+
+  button.warning:hover {
+    background: rgb(190, 172, 24);
+    transition: 0.1s all;
+  }
+
+  button.danger {
+    color: white;
+    background: rgb(255,0,0);
+    width: fit-content;
+    font-size: 16px;
+    padding: 12px;
+    outline: 0;
+    border: 0;
+    border-radius: 6px;
+    transition: 0.1s all;
+  }
+
+  button.danger:hover {
+    background: rgb(245, 0, 0);
+    transition: 0.1s all;
+  }
+  </style>
+    </div>
+  </body>
+  
+  <script src="/assets/js/server.js"></script>
+
+  <script src="/static/js/online-offline.js"></script>
+</html>

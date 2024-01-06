@@ -1,0 +1,9 @@
+LICENSE
+README.rst
+flask_websockets.py
+setup.py
+Flask_Websockets.egg-info/PKG-INFO
+Flask_Websockets.egg-info/SOURCES.txt
+Flask_Websockets.egg-info/dependency_links.txt
+Flask_Websockets.egg-info/requires.txt
+Flask_Websockets.egg-info/top_level.txt

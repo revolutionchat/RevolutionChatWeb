@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading... | Revolution</title>
+
+  <link rel="stylesheet" href="/static/css/loading.css">
+</head>
+<body>
+  <div class="top-alert">
+    {{rand_load_txt|safe}} - Please hang tight...
+  </div>
+  <div class="loaderv">
+    <div class="ring"></div>
+    <span><img src="/assets/images/Revolution-TR.png" width="55"/><br/>LOADING...</span>
+  </div>
+
+  <script>
+        window.addEventListener('load', () => {
+            if (navigator.onLine) {
+                setTimeout(function () {
+                  document.body.classList.add('invisible')
+                  document.body.style.background = "#444"
+                  sessionStorage.setItem(".here.before", "yes");
+                  window.location.href = "/channels/@me"
+                }, 500)
+            } else {
+                console.log("Navigator status" + navigator.onLine);
+            }
+        })
+  </script>
+</body>
+</html>

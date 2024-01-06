@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Log in | Revolution</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-status-bar" content="#fff" />
+  <meta name="theme-color" content="#db4938" />
+  <link rel="apple-touch-icon" href="/assets/images/Revolution.png" />
+  <link rel="manifest" href="/static/manifest.webmanifest">
+  <meta name="description" content="Revolution created PWA Application">
+  <link rel="stylesheet" href="/static/css/login.css">
+</head>
+<body>
+  <div class="content">
+    <div class="loginBox">
+      <span class="loginTitle">Welcome to Revolution!</span>
+      <div class="loginMessage">Please log in with your Revolution account!</div>
+      <form method="post" action="/login/action/account" class="loginForm">
+        <input name="email" type="text" placeholder="Email" required="required" autocomplete="off" class="loginEmail"/>
+        <input name="password" type="password" placeholder="Password" required="required" class="loginPassword" autocomplete="off" />
+        <input type="submit" class="loginSubmit" value="Log in" />
+      </form>
+    </div>
+  </div>
+</body>
+</html>

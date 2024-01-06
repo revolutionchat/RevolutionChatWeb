@@ -1,0 +1,183 @@
+<html>
+<head>
+  <title>Log in | Revolution</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker
+      .register("/serviceWorker.js")
+      .then(res => console.log("service worker registered - serviceWorker.js"))
+      .catch(err => console.log("service worker not registered - ", err))
+  })
+}
+  </script>
+  
+    <meta name="apple-mobile-web-app-status-bar" content="#fff" />
+    <meta name="theme-color" content="#db4938" />
+    <link rel="apple-touch-icon" href="/assets/images/Revolution.png" />
+    <link rel="manifest" href="/static/manifest.webmanifest">
+    <meta name="description" content="Revolution created PWA Application">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="8506589589-0clsk4uq9s9ru325nofe24arbprh1u6l.apps.googleusercontent.com">
+  <meta name="cloudwake-server" content="cloud://goobler.apps.cloudwake.com">
+  <style>@font-face { font-family: "Gotham Narrow"; src: url("/static/fonts/gotham-narrow-book.woff2"); }</style>
+<style>
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: grey; 
+}
+</style>
+<script src="https://kit.fontawesome.com/f110c9db95.js" crossorigin="anonymous"></script>
+</head>
+<body style="margin-left: 80px; margin-top: 20px;">
+  <img class="login-logo" src="/assets/images/Revolution.png" width="100"/>
+  <h2 style="font-family: monospace;">Welcome To Revolution</h2>
+  <p></p>
+    <!--<text>Signing in isn't supported on this version.</text>-->
+    <button class=button id="signinasguestbtn" type="button" disabled value="getResponse">Sign in as a Guest</button>
+    <button class=button onclick="location.href='/login/method/account';">Sign in with an account</button>
+    <button class=button onclick="location.href='/register';">Register</button>
+    <div id="recapt"></div>
+    <button class="button" onclick="alert('Your safety is very important to us, so we restricted sign ins until our website is secure. From now on, you can only sign in as a guest.')"><i class="fa fa-warning"></i>&nbsp;Your safety</button>
+    <div>By logging in, creating an account, or signing in as a guest, you agree to the <a href="https://revolution-web.repl.co/static/terms-of-use.txt">Terms of Use</a> and <a href="https://revolution-web.repl.co/static/privacy-policy.txt">Privacy Policy</a></div>
+  <br>
+  {% if 'usern' in session and 'email' in session %}
+    <text style="background: red; padding: 15px; border-radius: 6px;">Your already signed in! <a href="/app"><button class="button">Continue</button></a></text>
+  {% endif %}
+
+  <style>
+    .input-of-text {
+  border-bottom-color: lightgray;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  outline: none;
+  font-family: 'Gill Sans', sans-serif;
+}
+
+.input-of-text:focus {
+  border-bottom-color: rgb(0, 140, 255);
+  transition: border-bottom-color 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.input-of-text:hover {
+  border-bottom-color: rgb(0, 140, 255);
+  transition: border-bottom-color 0.6s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.button {
+  border-bottom-color: #3131fc;
+  background: #3131fc;
+  color: white;
+  height: 35px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border-left: 0px;
+  border-right: 1px;
+  border-top: 1px;
+  border-radius: 11px;
+  transition: border-bottom-color 2s, background 2s;
+  transition-delay: 0.2s;
+}
+
+.button:hover {
+  background: blue;
+  transition: background 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.button:focus {
+  background: #00aeff;
+  transition: background 0.01 ease-out;
+}
+
+p {
+  font-family: 'Gill Sans', sans-serif;
+}
+
+text {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+html {
+  border-left: 250px darkgray solid;
+  background: darkgray;
+}
+  </style>
+<script>
+  function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+    let data = {id: profile.getId(), name: profile.getName(), imgurl: profile.getImageUrl(), email: profile.getEmail()};
+
+    fetch("/login/action/google", {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'}, 
+      body: JSON.stringify(data)
+    }).then(res => {
+      console.log("Request complete! response:", res);
+      window.location.replace("/login/action/google/info?name="+profile.getName()+"");
+    });
+  }
+</script><script src="/assets/js/server.js"></script>
+   <script>
+   function onSubmit(response) {
+     console.log(response)
+     let btn = document.getElementById("signinasguestbtn")
+     btn.disabled = false;
+     btn.setAttribute('onclick','window.location.href="/login/method/guest";')
+   }
+   if (localStorage.getItem("token")) location.href = "/app"
+   var onloadCallback = function() {
+     grecaptcha.render('recapt', {
+        'sitekey' : '6LdG6AghAAAAAIWnuiKgy9ajQnGtWaih4bbGhKi-',
+        'callback' : onSubmit,
+        'theme' : 'dark'
+     });
+   }
+   onloadCallback()
+ </script>
+  <script>
+    const goobleroauth = (function() {
+      auth = window.open('https://auth.goobler.ga/auth/access?authnum=goobler&alert=Log%20in%20to%20your%20account', "Log in to your account", "location=no,status=yes");
+
+      inter = setInterval(function() {
+        if (auth.window.closed) {
+          if ("{{session['email']}}" != null) {
+            if ("{{session['passw']}}" != null) {
+              // go to the app
+              clearInterval(inter)
+              window.location.href = "/app";
+            }
+          }
+        }
+      });
+    });
+  </script>
+  
+  <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"></script>
+</body>
+</html>
