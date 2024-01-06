@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "revolution-web"
+version = "0.1.0"
+description = ""
+authors = ["Awesome Eric (cool!)", "meowy"]
+
+[tool.poetry.dependencies]
+python = ">=3.10.0,<3.11"
+numpy = "^1.22.2"
+replit = "^3.2.4"
+urllib3 = "^1.26.12"
+Flask = "2.3.2"
+gevent = "^22.10.2"
+gevent-websocket = "^0.10.1"
+Pyrebase4 = "4.7.1"
+ChatterBot2 = "1.1.0a7"
+spacy = "3.6.0"
+chatterbot-corpus = "1.2.0"
+PyYAML = "3.12"
+nltk = "3.8.1"
+Flask-Cors = "^4.0.0"
+g4f = "0.1.7.9"
+openai = "0.28.1"
+
+[tool.poetry.dev-dependencies]
+debugpy = "^1.6.2"
+replit-python-lsp-server = {extras = ["yapf", "rope", "pyflakes"], version = "^1.5.9"}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

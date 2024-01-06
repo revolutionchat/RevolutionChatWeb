@@ -1,0 +1,7 @@
+{
+  "intents": [
+    {"name": "greeting", "words": ["hello", "hi"], "responses": ["Hey there, how are you?", "Yo, how are you doing?", "What is up?", "Hello! Ask me a question your troubled about."]},
+    {"name": "sayname", "words": ["who","you"], "responses": ["I am Revolution, an AI text-based chat bot that is run on Revolution technology, not OpenAI."]},
+    {"name": "sayemail", "words": ["email"], "responses": ["Ah yes, your e-mail is $(USER_EMAIL), I know a lot about you, <b>$(USER_NAME)</b>"]}
+  ]
+}
