@@ -1,5 +1,5 @@
 from flask import Flask, render_template, send_file, send_from_directory, request, redirect, session, jsonify, Response, abort
-from replit import db as repldb
+#from replit import db as repldb
 from datetime import datetime
 import pyrebase as pyrebase
 import os, json, time, random, requests, classes
@@ -18,14 +18,14 @@ collections.Hashable = collections.abc.Hashable
 app = Flask(__name__, template_folder="./pages")
 account = "public"
 # THIS FUNCTION HERE (
-app.config['secret_key'] = os.environ['regen_secret_key']
-app.secret_key = os.environ['regen_secret_key']
+app.config['secret_key'] = "reovokfiergubtruybgybiyufbreyvft4evbrygbrtyuinbgyt5btfvertyvfytgt" #os.environ['regen_secret_key']
+app.secret_key = "reovokfiergubtruybgybiyufbreyvft4evbrygbrtyuinbgyt5btfvertyvfytgt" #os.environ['regen_secret_key']
 # ) REGENERATES THE SECRET KEY EVERY RUN TO PREVENT LEAKS
 
 aiModel = aiModel.RevolvedAI(app)
 
 firebaseConfiguration = {
-  "apiKey": os.environ['firebaseAPIKey'],
+  "apiKey": "AIzaSyDkGHNQ-Kl3G6bujqay-qjMo6CGY2GMxZw",
   "authDomain": "my-goodbarber-project-263704.firebaseapp.com",
   "databaseURL": "https://my-goodbarber-project-263704.firebaseio.com",
   "storageBucket": "my-goodbarber-project-263704.appspot.com"
@@ -34,7 +34,7 @@ firebase = pyrebase.initialize_app(firebaseConfiguration)
 fbauth = firebase.auth()
 db = firebase.database()
 
-repldb['verifycode'] = random.randint(1000, 9999)
+verrcode = random.randint(1000, 9999)
 
 userObject = {
   "name": "Cynamical",
