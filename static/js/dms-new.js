@@ -14,7 +14,7 @@ const dmPage = (dm) => {
   document.getElementById("input-area").hidden = false
   document.getElementById("read-only").hidden = true
   document.getElementsByTagName("title")[0].textContent = "@" + dm.user.name + "#" + dm.user.discriminator + " | Revolution"
-  history.pushState({}, "", "https://revolution-web.repl.co/channels/@me/" + dm.id)
+  history.pushState({}, "", "https://revolutionweb.onrender.com/channels/@me/" + dm.id)
   window.channelType = "d"
   window.currDm = dm
   websck.send(JSON.stringify({ "type": "resetfollowlist", "token": localStorage.getItem("token") }));
