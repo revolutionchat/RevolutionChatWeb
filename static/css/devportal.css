@@ -1,0 +1,173 @@
+@font-face {
+  font-family: "gg sans regular";
+  src: url("/static/fonts/gg sans Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "gg sans bold";
+  src: url("/static/fonts/gg sans Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "gg sans semibold";
+  src: url("/static/fonts/gg sans Semibold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "gg sans medium";
+  src: url("/static/fonts/gg sans Medium.ttf") format("truetype");
+}
+
+body,html {
+  background: #313338;
+  font-family: 'gg sans bold', 'gg sans regular', sans-serif, monospace;
+}
+
+body.loadingInProgress {
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+h1,h2,h3,h4,h5,h6,header {
+  color: white;
+}
+
+p {
+  color: #C4C9CE;
+}
+
+body .loadingScreen .loadingText {
+  text-align: center;
+  width: 100%;
+}
+
+body .loadingScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  font-family: 'gg sans bold', 'gg sans regular', sans-serif, monospace;
+}
+
+.blurple.bg {
+  background: #5865F2;
+}
+
+.flex.rw {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex.cl {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex.clrev {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.flex.rwrev {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.flex .start {
+  /*display: flex-start;*/
+  float: left;
+}
+
+.flex .end {
+  /*display: flex-end;*/
+  float: right;
+}
+
+.heading__main-2306 .rbutton.end {
+  margin-left: auto;
+  margin-right: 20px;
+  margin-top: 20px;
+  padding: 10px 16px;
+  height: fit-content;
+}
+
+.rbutton {
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  font-family: 'gg sans regular', sans-serif, monospace;
+  font-weight: 400;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.rbutton:hover {
+  background: #4752C4;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rmodal {
+  background: #15172a;
+}
+
+.portal__applications {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 20px;
+}
+
+.app-card {
+  background-color: #444;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: inline-flex;
+}
+
+.app-card:hover {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+.grey-text {
+  color: grey;
+}
+
+input.discord-styled {
+  background: hsl( 225 calc( 1 *6.3%) 12.5% /1);
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  height: 40px;
+  border-radius: 3px;
+  transition: all 0.2s ease-in-out;
+  border: 0.5px #333 solid;
+  outline: none;
+  font-family: 'gg sans regular', 'gg sans bold', monospace;
+  width: 60%;
+}
+
+input.discord-styled:focus {
+  border: 0.5px #4752C4 solid;
+  transition: all 0.2s ease-in-out;
+}
+
+button.delete-app {
+  width: fit-content;
+  height: 100%;
+  background: transparent;
+  color: red;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+}
+
+button.delete-app:hover {
+  background: rgba(255,255,255,0.1);
+}

@@ -1,0 +1,137 @@
+  .list-of-people-in-vc {
+    list-style: none;
+  }
+    .input-of-text {
+  border-bottom-color: lightgray;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  outline: none;
+  font-family: 'Gill Sans', sans-serif;
+}
+
+.user-typing {
+  font-family: 'Gill Sans', sans-serif;
+  color: white;
+  display: inline-flex;
+}
+
+.user-card {
+  background: #222;
+  border-radius: 14px;
+  color: white;
+  transition: all 0.5s ease;
+  overflow: hidden;
+  max-width: 280px;
+}
+
+.user-card-c {
+  padding: 10px 15px;
+}
+
+.user-card .banner-image {
+  background: url('/assets/images/defaultBanner.jpg');
+  background-repeat: no-repeat;
+  background-opacity: 0.3;
+  width: 100%;
+  height: 200px;
+  border-radius: 10px 10px 0 0; 
+}
+
+.user-card h3 {
+  font-family: 'gg sans bold', monospace, sans-serif;
+}
+
+.user-card .dismiss {
+  padding: 5px;
+  color: white;
+  width: 40px;
+  height: 40px;
+  background: rgba(0,0,0,0.3);
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.user-card .view-full-profile {
+  width: calc(fit-content + 2px);
+  height: 35px;
+  background: rgba(0,0,0,0.6);
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.user-list {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 16%;
+  background: #222;
+  height: 100%;
+  font-family: 'gg sans bold', sans-serif;
+}
+
+.user-list {
+  color: #212529;
+}
+
+.user-list span {
+  color: #555;
+  margin-left: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.user-list ul {
+  margin-left: 0px;
+  padding-left: 0px;
+}
+  
+.user-list ul .user {
+  height: 40px;
+  margin: 5px 5px; 
+  padding-left: 4px;
+  cursor: pointer;
+  border-radius: 6px;
+  color: white;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.user-list ul .user:hover {
+  background: #333;
+}
+
+.user-list ul .user .user-content {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.user-list ul .user .user-content .name {
+  margin-bottom: 0;
+  margin-left: 4px;
+}
+
+.input-of-text:focus {
+  border-bottom-color: rgb(0, 140, 255);
+  transition: border-bottom-color 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.input-of-text:hover {
+  border-bottom-color: rgb(0, 140, 255);
+  transition: border-bottom-color 0.6s ease-in-out;
+  transition-delay: 0.2s;
+}

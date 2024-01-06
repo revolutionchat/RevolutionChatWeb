@@ -1,0 +1,92 @@
+.button {
+  border-bottom-color: #3131fc;
+  background: #3131fc;
+  color: white;
+  height: 35px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border-left: 0px;
+  border-right: 1px;
+  border-top: 1px;
+  border-radius: 11px;
+  transition: border-bottom-color 2s, background 2s;
+  transition-delay: 0.2s;
+}
+
+.button:hover {
+  background: blue;
+  transition: background 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.button:focus {
+  background: #00aeff;
+  transition: background 0.01 ease-out;
+}
+
+button.primary {
+    color: white;
+    background: rgb(80,80,80);
+    width: fit-content;
+    font-size: 16px;
+    padding: 12px;
+    outline: 0;
+    border: 0;
+    border-radius: 6px;
+    transition: 0.1s all;
+  }
+
+  button.primary:hover {
+    background: rgb(40,40,40);
+    transition: 0.1s all;
+  }
+
+  button.success {
+    color: white;
+    background: rgb(0,100,0);
+    width: fit-content;
+    font-size: 16px;
+    padding: 12px;
+    outline: 0;
+    border: 0;
+    border-radius: 6px;
+    transition: 0.1s all;
+  }
+
+  button.success:hover {
+    background: rgb(0,50,0);
+    transition: 0.1s all;
+  }
+
+  button.warning {
+    color: black;
+    background: rgb(255,240,100);
+    width: fit-content;
+    font-size: 16px;
+    padding: 12px;
+    outline: 0;
+    border: 0;
+    border-radius: 6px;
+    transition: 0.1s all;
+  }
+
+  button.warning:hover {
+    background: rgb(190, 172, 24);
+    transition: 0.1s all;
+  }
+
+  button.danger {
+    color: white;
+    background: rgb(255,0,0);
+    width: fit-content;
+    font-size: 16px;
+    padding: 12px;
+    outline: 0;
+    border: 0;
+    border-radius: 6px;
+    transition: 0.1s all;
+  }
+
+  button.danger:hover {
+    background: rgb(245, 0, 0);
+    transition: 0.1s all;
+  }

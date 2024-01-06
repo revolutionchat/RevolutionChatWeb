@@ -1,0 +1,267 @@
+body, html {
+  overflow: scroll;
+  margin: 0;
+  font-family: 'Arial', sans-serif, 'Times New Roman';
+  background: #444;
+  scroll-behavior: smooth;
+}
+
+.sidebar-user-settings {
+  width: 25%;
+  height: 100%;
+  background: #444;
+  border-right: 2px solid #646464aa;
+  overflow: scroll;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+input.u {
+  border: 1px solid #fff;
+  border-top: 0px solid #fff;
+  border-left: 0px solid #fff;
+  border-right: 0px solid #fff;
+  outline: 0;
+  background: transparent;
+}
+
+input.u:focus {
+  border: 1px solid deepskyblue;
+  border-top: 0px solid #fff;
+  border-left: 0px solid #fff;
+  border-right: 0px solid #fff;
+}
+
+alertmodal {
+  color: red;
+}
+
+.settings {
+  margin-left: 25.2%;
+  color: white;
+  scroll-behavior: smooth;
+}
+
+.profile-view {
+  display: inline-flex;
+  background: #1c1c1c;
+  border: 4px solid #4c4c4c; 
+  border-radius: 8px;
+  padding: 5px;
+  margin: 10px;
+}
+
+a {
+  color: grey;
+  text-decoration: none;
+}
+
+.profile-view img {
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.profile-view span {
+  color: gray;
+}
+
+.profile-view h3 {
+  margin-bottom: 0;
+}
+
+.profile-view .information {
+  margin-right: 10px;
+}
+
+ul {
+  max-height: 100%;
+  overflow: auto;
+  height: 100%;
+  list-style: none;
+  color: darkcyan;
+  padding-right: 5px;
+}
+
+.sidebar-split {
+  margin-bottom: 5px;
+}
+
+.sidebar-heading {
+  color: grey;
+  font-weight: 600;
+  /*border-bottom: 2px solid #ccc;*/
+  margin: 0;
+  font-size: 20px;
+  padding: 5px;
+}
+
+.active-tab {
+  color: white;
+  background: grey !important;
+  border-radius: 8px;
+  transition: 0.2s all ease;
+  transform: translateX(5%) !important;
+  width: 100% !important;
+}
+
+.sidebar-list-item {
+  padding: 5px;
+  cursor: pointer;
+  transition: 1s all;
+  color: white;
+  background: #a8a8a8;
+  width: fit-content;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  opacity: 1;
+}
+
+.modal{
+      width: 100%; height: 100%; background: rgba(0,0,0,0.4); position: fixed; display: flex; align-items: center; justify-content: center;
+}
+.modal-content{
+  background: #44444a; 
+  height: 30%; 
+  min-width: 40%; 
+  border-radius: 6px;
+  animation-name: onopen;
+  animation-duration: 0.4s;
+  max-width: 40%;
+  overflow: scroll;
+  padding: 10px;
+  color: white;
+  overflow-x: hidden;
+  word-wrap: break-word;
+}
+
+/*modal scrollbar*/
+/* width */
+.modal-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.modal-content::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px transparent; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+.modal-content::-webkit-scrollbar-thumb {
+  background: transparent; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: grey; 
+  display: show;
+}
+/*end modal scrollbar*/
+
+/*sidebar scrollbar*/
+/* width */
+.sidebar-user-settings::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+.sidebar-user-settings::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px transparent; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+.sidebar-user-settings::-webkit-scrollbar-thumb {
+  background: transparent; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.sidebar-user-settings::-webkit-scrollbar-thumb:hover {
+  background: grey;
+}
+/*end sidebar scrollbar*/
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grayed {
+  color: #ccc;
+}
+
+button.primary {
+  color: white;
+  background: rgb(80,80,80);
+  width: fit-content;
+  font-size: 16px;
+  padding: 12px;
+  outline: 0;
+  border: 0;
+  border-radius: 6px;
+  transition: 0.1s all;
+  cursor: pointer;
+}
+
+button.primary:disabled, button.danger:disabled, button.warning:disabled, button.success:disabled {
+  cursor: default;
+  background: rgb(40,40,40);
+}
+
+button.primary:hover {
+  background: rgb(40,40,40);
+  transition: 0.1s all;
+}
+
+button.success {
+  color: white;
+  background: rgb(0,100,0);
+  width: fit-content;
+  font-size: 16px;
+  padding: 12px;
+  outline: 0;
+  border: 0;
+  border-radius: 6px;
+  transition: 0.1s all;
+  cursor: pointer;
+}
+
+button.success:hover {
+  background: rgb(0,50,0);
+  transition: 0.1s all;
+}
+
+button.warning {
+  color: black;
+  background: rgb(255,240,100);
+  width: fit-content;
+  font-size: 16px;
+  padding: 12px;
+  outline: 0;
+  border: 0;
+  border-radius: 6px;
+  transition: 0.1s all;
+  cursor: pointer;
+}
+
+button.warning:hover {
+  background: rgb(190, 172, 24);
+  transition: 0.1s all;
+}
+
+button.danger {
+  color: white;
+  background: rgb(255,0,0);
+  width: fit-content;
+  font-size: 16px;
+  padding: 12px;
+  outline: 0;
+  border: 0;
+  border-radius: 6px;
+  transition: 0.1s all;
+  cursor: pointer;
+}

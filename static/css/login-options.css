@@ -1,0 +1,93 @@
+:root {
+  font-size: 16px;
+}
+
+
+@font-face {
+  font-family: "gg sans";
+  font-weight: normal;
+  src: url("/static/fonts/gg sans Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "gg sans";
+  font-weight: bold;
+  src: url("/static/fonts/gg sans Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "gg sans";
+  font-weight: 600;
+  src: url("/static/fonts/gg sans Semibold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "gg sans";
+  font-weight: 500;
+  src: url("/static/fonts/gg sans Medium.ttf") format("truetype");
+}
+
+.content {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #222;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginBox {
+  background: #2f3136;
+  border-radius: 4px;
+  padding: 1rem;
+  color: white;
+  font-family: "gg sans", sans-serif;
+  width: 50vmin;
+  height: 50vmin;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginTitle {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+.loginMessage {
+  text-align: center;
+  width: 100%;
+  background: #777;
+  font-size: 0.8rem;
+  border-radius: 0.4rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  margin-bottom: 2rem;
+}
+
+.loginList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.loginButton {
+  -webkit-appearance: none;
+  background: #1E88E5;
+  text-align: center;
+  border: none;
+  font-weight: normal;
+  width: 100%;
+  padding: 0.4rem 0;
+  border-radius: 0.4rem;
+  text-decoration: none;
+  color: white;
+}
+
+.cred {
+  /*change to text color red*/
+  color: red;
+  font-weight: 800;
+}
