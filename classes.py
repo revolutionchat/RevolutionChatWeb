@@ -2,7 +2,7 @@ import os
 import json
 import smtplib
 #import spotipy
-import tkinter
+#import tkinter
 #from spotipy.oauth2 import SpotifyClientCredentials
 #from onesignal import OneSignalClient
 from email.mime.text import MIMEText
