@@ -67,7 +67,7 @@ panel-message {
 
 <!-- header -->
 {% if panel_message %}
-<panel-message>{{panel_message}}</panel-message>
+<panel-message>{{panel_message|safe}}</panel-message>
 {% else %}
 <panel-message hidden></panel-message>
 {% endif %}
